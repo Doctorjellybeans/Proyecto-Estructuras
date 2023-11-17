@@ -1,1 +1,0 @@
-#include "cartas\cartas.h"
