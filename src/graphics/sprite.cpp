@@ -1,6 +1,7 @@
 #include "graphics/sprite.h"
 
 #include <stdio.h>
+#include <SDL2/SDL.h>
 #include "graphics/render_window.h"
 
 void Sprite::create(int width, int height, SDL_Texture* texture) {
