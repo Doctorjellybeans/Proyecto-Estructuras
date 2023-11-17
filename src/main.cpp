@@ -2,12 +2,8 @@
 
 #define SDL_MAIN_HANDLED
 #include <SDL2/SDL.h>
-
-#include "graphics/render_window.h"
-
-#include <stdio.h>
-#include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 
 #include "graphics.h"
 
@@ -22,12 +18,21 @@ int main(int argc, char* args[]) {
         printf("SDL_image no se pudo inicializar. %s\n", IMG_GetError());
     }
 
+    if (TTF_Init() != 0) {
+        printf("SDL_ttf no se pudo inicializar. %s\n", TTF_GetError());
+    }
+
     RenderWindow window("Ventana", 800, 600);
     Texture* texture = window.load_texture("assets/pucv.png");
 
     Sprite sprite;
     sprite.set_position(280, 200);
     sprite.set_texture(texture);
+
+    Text hello_world;
+    hello_world.set_text("Hola Mundo");
+    hello_world.set_size(40);
+    hello_world.set_position(40, 80);
 
     SDL_Event event;
     while (window.is_open())
@@ -49,6 +54,7 @@ int main(int argc, char* args[]) {
         
         /* Dibujar */
         window.draw(sprite);
+        window.draw(hello_world);
 
         window.display();
         window.clear();

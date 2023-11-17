@@ -1,6 +1,11 @@
 #ifndef GRAPHICS_TRANSFORMABLE_H
 #define GRAPHICS_TRANSFORMABLE_H
 
+struct Vector2i {
+    int x;
+    int y;
+};
+
 struct Vector2 {
     float x;
     float y;
