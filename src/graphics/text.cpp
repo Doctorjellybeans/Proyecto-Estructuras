@@ -4,22 +4,10 @@
 #include "graphics/render_window.h"
 
 #include <stdio.h>
+#include <string.h>
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
-
-Text::Text() {
-
-    text = "Inserte Texto";
-    font_dir = "assets/fonts/source_code_pro.ttf";
-
-    font_size = 12;
-    need_update = true;
-
-    size.x = 0;
-    size.y = 0;
-
-    texture = NULL;
-}
 
 Text::~Text() {
     if (this->texture != nullptr) {
@@ -43,18 +31,25 @@ void Text::set_text(const char* string) {
 }
 
 void Text::update_texture(const RenderWindow* target) const {
-    TTF_Font* font = TTF_OpenFont(this->font_dir, this->font_size);
+
+    int size = this->font_size * max(get_scale().x, get_scale().y);
+
+    // Carga la fuente
+    TTF_Font* font = TTF_OpenFont(this->font_dir, size);
     if (font == NULL) {
         printf("error: %s\n", TTF_GetError());
     }
 
-    SDL_Surface* surface = TTF_RenderText_Solid(font, this->text, {255, 255, 255, 255});
+    // Carga la textura. Esta contiene el texto en la fuente deseada.
+    SDL_Surface* surface = TTF_RenderUTF8_Blended_Wrapped(font, this->text, {this->color.a, this->color.g, this->color.b, this->color.a}, strlen(this->text) * size);
     this->texture = SDL_CreateTextureFromSurface(target->get_renderer(), surface);
 
-    SDL_QueryTexture(texture, NULL, NULL, &size.x, &size.y);
+    // Actualiza el tamaño
+    SDL_QueryTexture(texture, NULL, NULL, &this->size.x, &this->size.y);
 
-    this->need_update = false;
+    // Cierra el archivo de la fuente
     TTF_CloseFont(font);
+    this->need_update = false;
 }
 
 void Text::draw(const RenderWindow* target) const {
