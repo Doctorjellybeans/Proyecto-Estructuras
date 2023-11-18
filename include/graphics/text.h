@@ -16,10 +16,15 @@ public:
     void set_font(const char* filename);
     void set_size(int size);
 
+    void set_scale(float x, float y) override;
+    void set_scale(const Vector2& scale) override;
+    void set_scale(const float scale) override;
+
+
 private:
 
     void update_texture(const RenderWindow* target) const;
-    virtual void draw(const RenderWindow* target) const;
+    virtual void draw(const RenderWindow* target) const override;
 
     const char* text;
     const char* font_dir;
