@@ -31,13 +31,16 @@ void Text::set_text(const char* string) {
 }
 
 void Text::update_texture(const RenderWindow* target) const {
+    if (this->text == NULL) {
+        return;
+    }
 
     int size = this->font_size * max(get_scale().x, get_scale().y);
 
     // Carga la fuente
     TTF_Font* font = TTF_OpenFont(this->font_dir, size);
     if (font == NULL) {
-        printf("error: %s\n", TTF_GetError());
+        error("No se pudo cargar la fuente%s\n", TTF_GetError());
     }
 
     // Carga la textura. Esta contiene el texto en la fuente deseada.

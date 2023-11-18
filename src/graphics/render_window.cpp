@@ -1,5 +1,7 @@
 #include "graphics/render_window.h"
 
+#include "util.h"
+
 #include <SDL2/SDL_image.h>
 #include <stdio.h>
 
@@ -35,7 +37,7 @@ Texture* RenderWindow::load_texture(const char* filename) {
     Texture* texture = IMG_LoadTexture(get_renderer(), filename);
 
     if (texture == NULL) {
-        printf("Error al cargar textura. %s", SDL_GetError());
+        error("Error al cargar textura. %s", SDL_GetError());
     }
 
     return texture;

@@ -1,6 +1,8 @@
 #ifndef UTIL_H
 #define UTIL_H
 
+void error(const char* fmt, ...);
+
 // Devuelve el mayor valor
 template <typename T>
 T max(T a, T b) {
