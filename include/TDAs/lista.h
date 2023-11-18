@@ -2,9 +2,6 @@
 
 #include <iostream>
 
-/* Para implementar la pila utilizaremos listas enlazadas simples*/
-
-
 // Clase lista 
 template <typename T>
 class Lista {
@@ -28,8 +25,9 @@ class Lista {
         ~Lista();
 
         // Operaciones
+        // Nodo* getHead() const;
         void pushFront(T valor);
-        void pushBack(T valor);
+        void pushBack(T valor); // falta implementarlo
         Nodo* search(const T& valor);
         void popCurrent(const T& valor);
 };

@@ -15,7 +15,7 @@ Lista<T>::~Lista() {
     }
 }
 
-// Agregar elementos al final de la lista
+// Agregar elementos al inicio de la lista
 template <typename T>
 void Lista<T>::pushFront(T valor) {
     Nodo* nuevoNodo = new Nodo(valor);
