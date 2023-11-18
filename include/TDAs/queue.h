@@ -9,7 +9,7 @@ public:
     Queue() = default;
     ~Queue();
 
-    void top();
+    T top();
     void push(T& element);
     void pop();
 
@@ -36,7 +36,7 @@ Queue<T>::~Queue() {
 }
 
 template <typename T>
-void Queue<T>::top() {
+T Queue<T>::top() {
     return this->front->data;
 }
 
@@ -58,8 +58,8 @@ void Queue<T>::pop() {
     Node* temp = this->front;
     this->front = this->front->next;
     
-    if (this->front == NULL) {
-        this->back = NULL;
+    if (this->front == nullptr) {
+        this->back = nullptr;
     }
 
     delete temp;
