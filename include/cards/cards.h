@@ -14,12 +14,12 @@ enum TypeOfCard {
 // Clase base carta
 class Card {
 public:
-    Card(TypeOfCard tipo);
+    Card(TypeOfCard type);
 
     /* En caso de agregar mas cosas (metodos?) */
 
 private:
-    TypeOfCard tipo;
+    TypeOfCard type;
 };
 
 // Clase derivada para cartas de daño
