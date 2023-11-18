@@ -37,6 +37,7 @@ T Pila<T>::pop() {
     return valor;
 } 
 
+// Comprobar si la pila esta vacia
 template <typename T>
 bool Pila<T>::estaVacia() const {
     return tope == nullptr;

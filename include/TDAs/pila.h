@@ -33,5 +33,5 @@ class Pila {
         bool estaVacia() const;
 };
 
-#endif
+#endif // PILA_H
 
