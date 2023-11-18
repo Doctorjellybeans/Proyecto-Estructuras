@@ -3,6 +3,6 @@
 
 #include <SDL2/SDL.h>
 
-typedef SDL_Texture Texture;
+using Texture = SDL_Texture;
 
 #endif // GRAPHICS_TEXTURE_H
