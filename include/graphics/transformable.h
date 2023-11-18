@@ -25,9 +25,9 @@ public:
     void set_rotation(float angle) { this->rotation = angle; }
     float get_rotation() const     { return this->rotation;  }
 
-    void set_scale(float x, float y);
-    void set_scale(const Vector2& scale);
-    void set_scale(const float scale);
+    virtual void set_scale(float x, float y);
+    virtual void set_scale(const Vector2& scale);
+    virtual void set_scale(const float scale);
     Vector2 get_scale() const { return this->scalar; }
 
     void move(float x, float y);

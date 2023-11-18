@@ -25,10 +25,11 @@ private:
     const char* font_dir;
     int font_size;
 
+    // Ninguno ha de tener getters
     mutable Vector2i size;
-    mutable bool need_update;
-    mutable Texture* texture;
-
+    mutable Texture* texture = nullptr;
+    mutable bool need_update = true;
+    mutable SDL_Renderer* last_renderer = nullptr;
 };
 
 

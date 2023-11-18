@@ -31,12 +31,11 @@ void Transformable::set_scale(float x, float y) {
 }
 
 void Transformable::set_scale(const Vector2& scale) {
-    this->scalar = scale;
+    set_scale(scale.y, scale.x);
 }
 
 void Transformable::set_scale(float scale) {
-    this->scalar.x = scale;
-    this->scalar.y = scale;
+    set_scale(scale, scale);
 }
 
 void Transformable::scale(float x, float y) {

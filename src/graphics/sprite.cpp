@@ -31,11 +31,12 @@ void Sprite::set_texture(Texture* texture) {
 
 void Sprite::draw(const RenderWindow* target) const {
     SDL_FRect rect;
-    rect.x = get_position().x;
-    rect.y = get_position().y;
-
     rect.w = get_size().x * get_scale().x;
     rect.h = get_size().y * get_scale().y;
+
+    // Calcular la posición centrada
+    rect.x = get_position().x - (rect.w - get_size().x) / 2.0f;
+    rect.y = get_position().y - (rect.h - get_size().y) / 2.0f;
     
     SDL_RenderCopyExF(target->get_renderer(), this->texture, NULL, &rect, rotation, NULL, SDL_FLIP_NONE);
 }
