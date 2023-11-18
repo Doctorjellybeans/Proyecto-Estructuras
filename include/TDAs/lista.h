@@ -25,9 +25,9 @@ class Lista {
         ~Lista();
 
         // Operaciones
-        // Nodo* getHead() const;
+        Nodo* getHead() const;
         void pushFront(T valor);
-        void pushBack(T valor); // falta implementarlo
+        void pushBack(T valor); 
         Nodo* search(const T& valor);
         void popCurrent(const T& valor);
 };

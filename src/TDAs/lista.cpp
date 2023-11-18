@@ -15,6 +15,12 @@ Lista<T>::~Lista() {
     }
 }
 
+// Obtener primer nodo (cabeza) de la lista
+template <typename T>
+typename Lista<T>::Nodo* Lista<T>::getHead() const {
+    return head;
+}
+
 // Agregar elementos al inicio de la lista
 template <typename T>
 void Lista<T>::pushFront(T valor) {
@@ -43,6 +49,7 @@ typename Lista<T>::Nodo* Lista<T>::search(const T& valor) {
     return nullptr;
 }
 
+// Elimina un nodo con un valor especifico de la lista 
 template <typename T>
 void Lista<T>::popCurrent(const T& valor) {
     Nodo* nodoEliminar = search(valor);
