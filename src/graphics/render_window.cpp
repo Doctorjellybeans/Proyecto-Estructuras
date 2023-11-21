@@ -37,7 +37,7 @@ Texture* RenderWindow::load_texture(const char* filename) {
     Texture* texture = IMG_LoadTexture(get_renderer(), filename);
 
     if (texture == NULL) {
-        error("Error al cargar textura. %s", SDL_GetError());
+        error("No se pudo cargar textura. %s", SDL_GetError());
     }
 
     return texture;

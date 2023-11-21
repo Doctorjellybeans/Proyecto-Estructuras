@@ -10,6 +10,7 @@ public:
 
     virtual void render() = 0;
     virtual void update() = 0;
+    virtual void clear()  = 0;
     
     inline void end() { quited = true; }
     inline bool has_ended() const { return quited; }
