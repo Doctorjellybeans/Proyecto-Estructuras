@@ -1,97 +1,121 @@
 #ifndef MAPA_H
 
 #include <iostream>
-
-// Inclusion de lista para resolver colisiones con listas enlazadas
 #include "lista.h" 
 
+// Clase nodo mapa
+template <typename K, typename V>
+class NodoMapa {
+    public:
+        K clave;
+        V valor;
+
+        NodoMapa(const K& k, const V& val) : clave(k), valor(val) {}
+};
+
+// Clase mapa
 template <typename K, typename V>
 class Mapa {
     private:
-        static const int TAMANIO_INICIAL = 10;
-        static const double FACTOR_DE_CARGA_MAXIMO;
+        int capacidad;
+        int elementos;
+        std::list<NodoMapa<K, V>>* tabla;
 
-        Lista<std::pair<K,V>>* tabla; // Arreglo de Listas 
-        int capacidad;                // Tamanio de la tabla
-        int elementos;                // Elementos presentes en la tabla
+        static const double FACTOR_DE_CARGA;
 
-        /* La funcion hash quedara sujeta a cambios */
-        int funcionHash(const K& clave) const;
+        int funcionHash(const K& clave) const {
+            // Función hash simple para convertir la clave a un índice en la tabla
+            // (puedes mejorarla dependiendo de tus necesidades)
+            return std::hash<K>{}(clave) % capacidad;
+        }
 
-        void redimensionarTabla(int nuevoTamanio);
-    
+        void redimensionarTabla() {
+            // Doble la capacidad y vuelve a insertar todos los elementos
+            int nuevaCapacidad = capacidad * 2;
+            std::list<NodoMapa<K, V>>* nuevaTabla = new std::list<NodoMapa<K, V>>[nuevaCapacidad];
+
+            for (int i = 0; i < capacidad; ++i) {
+                for (const auto& nodo : tabla[i]) {
+                    int indice = funcionHash(nodo.clave);
+                    nuevaTabla[indice].emplace_back(nodo);
+                }
+            }
+
+            delete[] tabla;
+            tabla = nuevaTabla;
+            capacidad = nuevaCapacidad;
+        }
+
     public:
-        // Construir / Destruir 
-        Mapa();
-        ~Mapa();
+        Mapa(int capacidadInicial = 10) : capacidad(capacidadInicial), elementos(0) {
+            tabla = new std::list<NodoMapa<K, V>>[capacidadInicial];
+        }
 
-        // Operaciones de la tablisha
-        void insertar(const K& clave, const V& valor);
-        typename Lista<std::pair<K, V>>::Nodo* buscar(const K& clave) const;
-        void eliminar(const K& clave); 
+        ~Mapa() {
+            delete[] tabla;
+        }
+
+        void insertar(const K& clave, const V& valor) {
+            int indice = funcionHash(clave);
+
+            // Busca si la clave ya existe en la lista y, si es así, actualiza el valor
+            for (auto& nodo : tabla[indice]) {
+                if (nodo.clave == clave) {
+                    nodo.valor = valor;
+                    return;
+                }
+            }
+
+            // Si la clave no existe, agrega un nuevo nodo a la lista
+            tabla[indice].emplace_back(clave, valor);
+            elementos++;
+
+            // Verifica si se debe redimensionar la tabla
+            if (static_cast<double>(elementos) / capacidad > FACTOR_DE_CARGA) {
+                redimensionarTabla();
+            }
+        }
+
+        bool buscar(const K& clave, V& valor) const {
+            int indice = funcionHash(clave);
+
+            // Busca la clave en la lista
+            for (const auto& nodo : tabla[indice]) {
+                if (nodo.clave == clave) {
+                    valor = nodo.valor;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        void eliminar(const K& clave) {
+            int indice = funcionHash(clave);
+
+            // Busca la clave en la lista y la elimina
+            auto it = std::remove_if(tabla[indice].begin(), tabla[indice].end(),
+                                    [&clave](const NodoMapa<K, V>& nodo) {
+                                        return nodo.clave == clave;
+                                    });
+
+            if (it != tabla[indice].end()) {
+                tabla[indice].erase(it, tabla[indice].end());
+                elementos--;
+            }
+        }
+
+        void imprimir() const {
+            for (int i = 0; i < capacidad; ++i) {
+                for (const auto& nodo : tabla[i]) {
+                    std::cout << "Clave: " << nodo.clave << ", Valor: " << nodo.valor << std::endl;
+                }
+            }
+        }
 };
 
-// Inicializacion de la constante factor de carga maximo
 template <typename K, typename V>
-const double Mapa<K, V>::FACTOR_DE_CARGA_MAXIMO = 0.7;
-
-// Constructor de la clase Mapa
-template <typename K, typename V>
-Mapa<K, V>::Mapa() : capacidad(TAMANIO_INICIAL), elementos(0) {
-    tabla = new Lista<std::pair<K, V>>[capacidad];  // Falta especificar el tipo de datos dentro de Lista
-}
-
-/*En cuanto a la Funcion hash, prefiero que la manejes tu mati
-  en caso de que encuentres mas apropiado otra implementacion 
-  
-    template <typename K, typename V>
-    int Mapa<K, V>::hashFunc(const K& clave) const {
-        return std::hash<K>{}(clave) % capacidad;
-    }
-
-*/
-
-// Redimensionar tabla hash
-template <typename K, typename V>
-void Mapa<K, V>::redimensionarTabla(int nuevoTamanio) {
-    Lista<std::pair<K, V>>* nuevaTabla = new Lista<std::pair<K, V>>[nuevoTamanio];
-
-    for (int i = 0; i < capacidad; i++) {
-        typename Lista<std::pair<K, V>>::Nodo* actual = tabla[i].getHead();
-        while (actual) {
-            std::pair<K, V> elemento = actual->dato;
-            int nuevoIndice = funcionHash(elemento.first) % nuevoTamanio;
-            nuevaTabla[nuevoIndice].pushBack(elemento);
-            actual = actual->siguiente;
-        }
-    }
-
-    // Actualizar capacidad y tabla
-    capacidad = nuevoTamanio;
-    delete[] tabla;
-    tabla = nuevaTabla;
-}
-
-// Insertar elementos a la tabla hash
-template <typename K, typename V>
-void Mapa<K, V>::insertar(const K& clave, const V& valor) {
-    // Insertar par / comprobar factor de carga
-    if ((double)elementos / capacidad > FACTOR_DE_CARGA_MAXIMO) {
-        int nuevoTamanio = capacidad * 2;
-        redimensionarTabla(nuevoTamanio);
-    }
-
-    int indice = funcionHash(clave);
-    std::pair<K, V> nuevoPar(clave, valor);
-    tabla[indice].pushBack(nuevoPar);
-    elementos++;
-}
-// Buscar elementos en la tabla
-template <typename K, typename V>
-typename Lista<std::pair<K, V>>::Nodo* Mapa<K, V>::buscar(const K& clave) const {
-    int indice = funcionHash(clave);
-    return tabla[indice].search(std::make_pair(clave, V()));
-}
+const double Mapa<K, V>::FACTOR_DE_CARGA = 0.75;
 
   
 

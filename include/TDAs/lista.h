@@ -2,104 +2,116 @@
 
 #include <iostream>
 
-// Clase lista 
+// Clase Nodo de una lista
 template <typename T>
-class Lista {
-    
-    private:
-        // Estructura de los nodos lista
-        struct Nodo {
-            T dato;
-            Nodo* siguiente;
-            Nodo* anterior;
-
-            Nodo(T valor): dato(valor), siguiente(nullptr), anterior(nullptr) {}
-        };
-
-        // Nodo al tope de una pila
-        Nodo* head; 
-
+class Nodo {
     public:
-        // Construir / Destruir
-        Lista();
-        ~Lista();
+        int clave;
+        T valor;
+        Nodo* siguiente;
+        Nodo* anterior;
 
-        // Operaciones
-        Nodo* getHead() const;
-        void pushFront(T valor);
-        void pushBack(T valor); 
-        Nodo* search(const T& valor);
-        void popCurrent(const T& valor);
+        Nodo(int k, T val) : clave(k), valor(val), siguiente(nullptr), anterior(nullptr) {}
 };
 
-// Constructor
+// Clase lista
 template <typename T>
-Lista<T>::Lista() : head(nullptr) {}
+class Lista {
+    private:
+        Nodo<T>* cabeza;
+        Nodo<T>* cola;
 
-// Destructor
-template <typename T>
-Lista<T>::~Lista() {
-    Nodo* actual = head;
-    while (actual) {
-        Nodo* siguiente = actual->siguiente;
-        delete actual;
-        actual = siguiente;
-    }
-}
+    public:
+        Lista() : cabeza(nullptr), cola(nullptr) {}
 
-// Obtener primer nodo (cabeza) de la lista
-template <typename T>
-typename Lista<T>::Nodo* Lista<T>::getHead() const {
-    return head;
-}
-
-// Agregar elementos al inicio de la lista
-template <typename T>
-void Lista<T>::pushFront(T valor) {
-    Nodo* nuevoNodo = new Nodo(valor);
-    if (!head) {
-        head = nuevoNodo;
-    } else {
-        nuevoNodo->siguiente = head;
-        head->anterior = nuevoNodo;
-        head = nuevoNodo;
-    }
-}
-
-// Busca un elemento en la lista / devuelve el nodo
-template <typename T>
-typename Lista<T>::Nodo* Lista<T>::search(const T& valor) {
-    Nodo* actual = head;
-    while (actual) {
-        // Eureka, encontramos el nodo
-        if (actual->dato == valor) {
-            return actual;
-        }
-        actual = actual->siguiente;
-    }
-    // No se encontro
-    return nullptr;
-}
-
-// Elimina un nodo con un valor especifico de la lista 
-template <typename T>
-void Lista<T>::popCurrent(const T& valor) {
-    Nodo* nodoEliminar = search(valor);
-    if (nodoEliminar) {
-        if (nodoEliminar->anterior) {
-            nodoEliminar->anterior->siguiente = nodoEliminar->siguiente;
-        } else {
-            // Es el primer nodo
-            head = nodoEliminar->siguiente;
+        ~Lista() {
+            while (cabeza != nullptr) {
+                Nodo<T>* temp = cabeza;
+                cabeza = cabeza->siguiente;
+                delete temp;
+            }
         }
 
-        if (nodoEliminar->siguiente) {
-            nodoEliminar->siguiente->anterior = nodoEliminar->anterior;
+        void insertarAtras(int clave, T val) {
+            Nodo<T>* nuevoNodo = new Nodo<T>(clave, val);
+            if (cabeza == nullptr) {
+                cabeza = nuevoNodo;
+                cola = nuevoNodo;
+            } else {
+                nuevoNodo->anterior = cola;
+                cola->siguiente = nuevoNodo;
+                cola = nuevoNodo;
+            }
         }
 
-        delete nodoEliminar;
-    }
-}
+        void insertarFrente(int clave, T val) {
+            Nodo<T>* nuevoNodo = new Nodo<T>(clave, val);
+            if (cabeza == nullptr) {
+                cabeza = nuevoNodo;
+                cola = nuevoNodo;
+            } else {
+                nuevoNodo->siguiente = cabeza;
+                cabeza->anterior = nuevoNodo;
+                cabeza = nuevoNodo;
+            }
+        }
+
+        void eliminarAtras() {
+            if (cola != nullptr) {
+                Nodo<T>* temp = cola;
+                cola = cola->anterior;
+                if (cola != nullptr) {
+                    cola->siguiente = nullptr;
+                } else {
+                    cabeza = nullptr;
+                }
+                delete temp;
+            }
+        }
+
+        void eliminarFrente() {
+            if (cabeza != nullptr) {
+                Nodo<T>* temp = cabeza;
+                cabeza = cabeza->siguiente;
+                if (cabeza != nullptr) {
+                    cabeza->anterior = nullptr;
+                } else {
+                    cola = nullptr;
+                }
+                delete temp;
+            }
+        }
+
+        void eliminarActual(int clave) {
+            Nodo<T>* actual = buscar(clave);
+            if (actual != nullptr) {
+                if (actual->anterior != nullptr) {
+                    actual->anterior->siguiente = actual->siguiente;
+                } else {
+                    cabeza = actual->siguiente;
+                }
+
+                if (actual->siguiente != nullptr) {
+                    actual->siguiente->anterior = actual->anterior;
+                } else {
+                    cola = actual->anterior;
+                }
+
+                delete actual;
+            }
+        }
+
+        Nodo<T>* buscar(int clave) {
+            Nodo<T>* actual = cabeza;
+            while (actual != nullptr) {
+                if (actual->clave == clave) {
+                    return actual;
+                }
+                actual = actual->siguiente;
+            }
+            return nullptr; // No se encontró la clave
+        }
+};
 
 
 #endif // LISTA_H

@@ -4,75 +4,63 @@
 
 /* Para implementar la pila utilizaremos listas enlazadas simples*/
 
-
-// Clase pila 
+// Clase nodo de una pila
 template <typename T>
-class Pila {
-    
-    private:
-        // Estructura de los nodos pila
-        struct Nodo {
-            T dato;
-            Nodo* siguiente;
-
-            Nodo(T valor): dato(valor), siguiente(nullptr) {}
-        };
-
-        // Nodo al tope de una pila
-        Nodo* tope; 
-
+class NodoPila {
     public:
-        // Inicio / Destruccion
-        Pila();
-        ~Pila();
-        
-        // Operaciones 
-        void push(const T& elemento);
-        T pop();
-        T top() const;
-        bool estaVacia() const;
+        int clave;
+        T valor;
+        NodoPila* siguiente;
+
+        NodoPila(int k, T val) : clave(k), valor(val), siguiente(nullptr) {}
 };
 
-// Inicializar pila
+// Clase pila
 template <typename T>
-Pila<T>::Pila() : tope(nullptr) {}
+class Pila {
+    private:
+        NodoPila<T>* tope;
 
-// Destruir pila
-template <typename T>
-Pila<T>::~Pila() {
-    while (!estaVacia()){
-        pop();
-    }
-}
+    public:
+        Pila() : tope(nullptr) {}
 
-// Apilar elemntos a la pila
-template <typename T>
-void Pila<T>::push(const T& elemento) {
-    Nodo* nuevoNodo = new Nodo(elemento);
-    nuevoNodo->siguiente = tope;
-    tope = nuevoNodo;
-}
+        ~Pila() {
+            while (!estaVacia()) {
+                desapilar();
+            }
+        }
 
-// Desapilar elementos de la pila cuchau
-template <typename T>
-T Pila<T>::pop() {
-    if (estaVacia()){
-        throw std::out_of_range("La pila esta vacia");
-    }
+        void apilar(int clave, T val) {
+            NodoPila<T>* nuevoNodo = new NodoPila<T>(clave, val);
+            if (tope == nullptr) {
+                tope = nuevoNodo;
+            } else {
+                nuevoNodo->siguiente = tope;
+                tope = nuevoNodo;
+            }
+        }
 
-    Nodo* nodoEliminar = tope;
-    tope = tope->siguiente;
-    T valor = nodoEliminar->dato;
-    delete nodoEliminar;
+        void desapilar() {
+            if (!estaVacia()) {
+                NodoPila<T>* temp = tope;
+                tope = tope->siguiente;
+                delete temp;
+            }
+        }
 
-    return valor;
-} 
+        T obtenerTope() const {
+            if (!estaVacia()) {
+                return tope->valor;
+            } else {
+                std::cerr << "La pila está vacía." << std::endl;
+                exit(EXIT_FAILURE);
+            }
+        }
 
-// Comprobar si la pila esta vacia
-template <typename T>
-bool Pila<T>::estaVacia() const {
-    return tope == nullptr;
-}
+        bool estaVacia() const {
+            return tope == nullptr;
+        }
+};
 
 
 #endif // PILA_H
