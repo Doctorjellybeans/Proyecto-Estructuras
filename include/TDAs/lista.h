@@ -1,4 +1,5 @@
 #ifndef LISTA_H
+#define LISTA_H
 
 #include <iostream>
 
@@ -18,11 +19,12 @@ class Nodo {
 template <typename T>
 class Lista {
     private:
+        int tamanio;
         Nodo<T>* cabeza;
         Nodo<T>* cola;
 
     public:
-        Lista() : cabeza(nullptr), cola(nullptr) {}
+        Lista() : tamanio(0), cabeza(nullptr), cola(nullptr) {}
 
         ~Lista() {
             while (cabeza != nullptr) {
@@ -30,6 +32,10 @@ class Lista {
                 cabeza = cabeza->siguiente;
                 delete temp;
             }
+        }
+
+        int obtenerTamanio() const {
+            return tamanio;
         }
 
         void insertarAtras(int clave, T val) {
@@ -42,6 +48,7 @@ class Lista {
                 cola->siguiente = nuevoNodo;
                 cola = nuevoNodo;
             }
+            tamanio++;
         }
 
         void insertarFrente(int clave, T val) {
@@ -54,6 +61,7 @@ class Lista {
                 cabeza->anterior = nuevoNodo;
                 cabeza = nuevoNodo;
             }
+            tamanio++;
         }
 
         void eliminarAtras() {
@@ -66,6 +74,7 @@ class Lista {
                     cabeza = nullptr;
                 }
                 delete temp;
+                tamanio--;
             }
         }
 
@@ -79,6 +88,7 @@ class Lista {
                     cola = nullptr;
                 }
                 delete temp;
+                tamanio--;
             }
         }
 
@@ -98,6 +108,7 @@ class Lista {
                 }
 
                 delete actual;
+                tamanio--;
             }
         }
 
@@ -112,6 +123,5 @@ class Lista {
             return nullptr; // No se encontró la clave
         }
 };
-
 
 #endif // LISTA_H

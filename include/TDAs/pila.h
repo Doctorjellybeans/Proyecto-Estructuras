@@ -1,6 +1,8 @@
 #ifndef PILA_H
+#define PILA_H
 
 #include <iostream>
+#include <stdexcept> 
 
 /* Para implementar la pila utilizaremos listas enlazadas simples*/
 
@@ -40,12 +42,17 @@ class Pila {
             }
         }
 
-        void desapilar() {
-            if (!estaVacia()) {
-                NodoPila<T>* temp = tope;
-                tope = tope->siguiente;
-                delete temp;
+        T desapilar() {
+            if (estaVacia()) {
+                throw std::out_of_range("La pila esta vacia lol");
             }
+
+            NodoPila<T>* temp = tope;
+            T objetoDesapilado = temp->valor;
+            tope = tope->siguiente;
+            delete temp;
+
+            return objetoDesapilado;
         }
 
         T obtenerTope() const {
