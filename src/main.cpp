@@ -7,9 +7,31 @@
 
 #include "graphics.h"
 #include "application.h"
+#include "TDA-Oh/jugador.h"
 
 int main(int argc, char* args[]) {
+    Mazo mazo;
+    mazo.rellenarMazo();
     
+    Salud salud;
+    Jugador jugador1(mazo, "pepe", salud);
+    jugador1.robarCarta();
+    jugador1.robarCarta();
+    jugador1.robarCarta();
+    jugador1.robarCarta();
+    jugador1.robarCarta();
+    jugador1.robarCarta();
+    jugador1.robarCarta();
+    jugador1.robarCarta();
+    jugador1.robarCarta();
+    jugador1.robarCarta();
+    
+    jugador1.manoJugador();
+
+
+    
+    
+    /*
     // Inicializa SDL
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
         printf("SDL2 no se pudo inicializar. %s\n", SDL_GetError());
@@ -28,6 +50,6 @@ int main(int argc, char* args[]) {
     
     // Finaliza SDL
     SDL_Quit();
-
+    */
     return 0;
 }

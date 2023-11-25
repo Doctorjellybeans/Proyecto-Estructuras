@@ -19,7 +19,7 @@ class Mapa {
     private:
         int capacidad;
         int elementos;
-        std::Lista<NodoMapa<K, V>>* tabla;
+        Lista<NodoMapa<K, V>>* tabla;
 
         static const double FACTOR_DE_CARGA;
 

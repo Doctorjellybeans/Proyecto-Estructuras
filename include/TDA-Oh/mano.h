@@ -18,11 +18,38 @@ class Mano {
             return &mano;
         }
 
+        int largoMano(){
+            return mano.obtenerTamanio();
+        }
+
+        void mostrarMano() {
+            for (int i = 0; i < mano.obtenerTamanio() + 1; i++) {
+                Nodo<Carta>* nodo = buscarCarta(i);
+                Carta carta = nodo->valor;
+                
+                TipoCarta tipo = carta.obtenerTipo();
+                if (tipo == TipoCarta::DANIO) std:: cout << "DANIO ";
+                if (tipo == TipoCarta::VIDA) std:: cout << "VIDA ";
+                if (tipo == TipoCarta::EFECTO) std:: cout << "EFECTO ";
+                
+                TipoOperacion op = carta.obtenerOperacion();
+                if (op == TipoOperacion::Apilar) std:: cout <<"Apilar ";
+                if (op == TipoOperacion::Desapilar) std:: cout <<"Desapilar ";
+                if (op == TipoOperacion::Encolar) std:: cout <<"Encolar ";
+                if (op == TipoOperacion::Desencolar) std:: cout <<"Desencolar ";
+                if (op == TipoOperacion::InsertarActual) std:: cout <<"InsertarActual ";
+                if (op == TipoOperacion::EliminarActual) std:: cout <<"EliminarActual ";
+                if (op == TipoOperacion::CambiarTda) std:: cout <<"CambiarTDA ";
+                
+                int puntajeCarta = carta.obtenerPuntaje();
+                std::cout << "ptj:" << puntajeCarta << std::endl;
+
+            }
+        }
+
         void agregarCarta(Mazo& mazo) {
             mano.insertarFrente(mano.obtenerTamanio(),mazo.sacarCarta());
         }
-
-        void mostrarMano() const;
         
         void descartarCarta(int posicion) {
             mano.eliminarActual(posicion);

@@ -16,29 +16,26 @@ class Jugador {
     
     public:
         Jugador(Mazo& mazo, const std::string& nombre, Salud& salud) : mazo(mazo), nombreJugador(nombre), salud(salud) {
-            mazo.rellenarMazo();
             mano.crearMano(mazo);
-            salud.crearSalud(20);
+            salud.crearSalud(20,TipoTDA::PILA);
         }
-
-        // ~Jugador();
 
         void robarCarta() {
             mano.agregarCarta(mazo);   
         }
 
-        void jugarCarta() {
-            Carta cartaJugada = obtenerCartaJugada();
-
-            if (salud.validarJugada(cartaJugada)) {
-                // Si funca, jugar carta
-            } else {
-                // No funca, no jugar
-            }
+        void jugarCarta(int posicion) {
+            Carta cartaJugada = obtenerCartaJugada(posicion);
         }
 
-        Nodo<Carta>* obtenerCartaJugada(int posicion) {
-            return mano.buscarCarta(posicion);
+        void manoJugador(){
+            mano.mostrarMano();
+        }
+
+        Carta obtenerCartaJugada(int posicion) {
+            Nodo<Carta>* nodo = mano.buscarCarta(posicion);
+            Carta carta = nodo->valor;
+            return carta;
         }
 
         bool pasarTurno();

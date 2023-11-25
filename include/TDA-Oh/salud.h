@@ -16,11 +16,20 @@ enum class TipoTDA {
 class Salud {
     public:
 
-    Salud() : tipoActual(TipoTDA::PILA) {}
+    void crearSalud(int valorInicial, TipoTDA tipo) {
+        // Inicializar las estructuras de datos con el valor inicial de la salud
+        for (int i = 0; i < valorInicial; ++i) {
+            pilaSalud.apilar(i,1);
+            colaSalud.push(i);
+            listaSalud.insertarAtras(i,1);
+        }
+
+        tipoActual = tipo;
+    }
 
     ~Salud() {}
 
-    void obtenerTipoActual() const {
+    TipoTDA obtenerTipoActual() const {
         return tipoActual;
     }
 
@@ -30,7 +39,7 @@ class Salud {
 
         if (tipoActual == TipoTDA::PILA) {
             
-            switch (TipoCarta) {
+            switch (tipoCarta) {
                 case TipoCarta::DANIO:
                     if (operacion == TipoOperacion::Desapilar) {
                         return 1;
@@ -49,7 +58,7 @@ class Salud {
 
         } else if (tipoActual == TipoTDA::COLA) {
             
-            switch (TipoCarta) {
+            switch (tipoCarta) {
                 case TipoCarta::DANIO:
                     if (operacion == TipoOperacion::Desencolar) {
                         return 1;
@@ -67,7 +76,7 @@ class Salud {
             }
 
         } else if (tipoActual == TipoTDA::LISTA) {
-            switch (TipoCarta) {
+            switch (tipoCarta) {
                 case TipoCarta::DANIO:
                     if (operacion == TipoOperacion::EliminarActual) {
                         return 1;
@@ -84,7 +93,7 @@ class Salud {
                     break;
             }
         } else if (tipoCarta == TipoCarta::EFECTO) {
-            return 3
+            return 3;
         }
     }
 
@@ -106,14 +115,14 @@ class Salud {
 
     void cambiarSiguiente() {
         switch (tipoActual) {
-            case TipoTDA::Pila:
-                tipoActual = TipoTDA::Cola;
+            case TipoTDA::PILA:
+                tipoActual = TipoTDA::COLA;
                 break;
-            case TipoTDA::Cola:
-                tipoActual = TipoTDA::Lista;
+            case TipoTDA::COLA:
+                tipoActual = TipoTDA::LISTA;
                 break;
-            case TipoTDA::Lista:
-                tipoActual = TipoTDA::Pila;
+            case TipoTDA::LISTA:
+                tipoActual = TipoTDA::PILA;
                 break;
         }
     }
@@ -129,10 +138,10 @@ class Salud {
             
             switch (tipoCarta) {
                 case 1: // DANIO
-                    causarDanio();
+                    causarDanio(puntajeCarta);
                     break;
                 case 2: // SALUD
-                    curarVida();
+                    curarVida(puntajeCarta);
                     break;
 
                 case 3: // EFECTO

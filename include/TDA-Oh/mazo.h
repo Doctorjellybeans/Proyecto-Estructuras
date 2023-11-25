@@ -55,19 +55,15 @@ class Mazo {
         TipoOperacion operacionAleatoria(TipoCarta tipo) const {
             TipoOperacion operacion;
 
-            switch (tipo) {
-                case TipoCarta::DANIO:
-                    static const TipoOperacion operacionesDanio[] = {TipoOperacion::Desapilar, TipoOperacion::Desencolar, TipoOperacion::EliminarActual};
-                    operacion = operacionesDanio[numeroAleatorio(3)];
-                    break;
-                case TipoCarta::VIDA:
-                    static const TipoOperacion operacionesVida[] = {TipoOperacion::Apilar, TipoOperacion::Encolar, TipoOperacion::InsertarActual};
-                    operacion = operacionesVida[numeroAleatorio(3)];
-                    break;
-                case TipoCarta::EFECTO:
-                    static const TipoOperacion operacionesEspeciales[] = {TipoOperacion::CambiarTda};
-                    operacion = operacionesVida[numeroAleatorio(1)];
-                    break;
+            if (tipo == TipoCarta::DANIO) {
+                static const TipoOperacion operacionesDanio[] = {TipoOperacion::Desapilar, TipoOperacion::Desencolar, TipoOperacion::EliminarActual};
+                operacion = operacionesDanio[numeroAleatorio(3)];
+            } else if (tipo == TipoCarta::VIDA) {
+                static const TipoOperacion operacionesVida[] = {TipoOperacion::Apilar, TipoOperacion::Encolar, TipoOperacion::InsertarActual};
+                operacion = operacionesVida[numeroAleatorio(3)];
+            } else if (tipo == TipoCarta::EFECTO) {
+                static const TipoOperacion operacionesEspeciales[] = {TipoOperacion::CambiarTda};
+                operacion = operacionesEspeciales[numeroAleatorio(1)];
             }
 
             return operacion;
