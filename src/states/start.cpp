@@ -4,9 +4,9 @@
 StartState::StartState() {
     this->window = new RenderWindow("TDA-OH!", 800, 600);
 
-    title.set_text("TDA_OH!");
-    title.set_size(70);
-    title.set_position(250, 120);
+    title.setText("TDA_OH!");
+    title.setSize(70);
+    title.setPosition(250, 120);
 }
 
 StartState::~StartState() {

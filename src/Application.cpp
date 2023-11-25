@@ -20,7 +20,7 @@ void Application::run() {
     {
         while(SDL_PollEvent(&this->event))
         {
-            poll_events();
+            pollEvents();
         }
 
         update();
@@ -35,7 +35,7 @@ void Application::run() {
 void Application::update() {
     State* state = this->states.top();
     
-    if(!state->has_ended()) {
+    if(!state->hasEnded()) {
         state->update();
     } else {
         this->states.pop();
@@ -50,7 +50,7 @@ void Application::render() {
     }
 }
 
-void Application::poll_events() {
+void Application::pollEvents() {
     switch (event.type)
     {
     case SDL_QUIT:

@@ -13,7 +13,7 @@ public:
     virtual void clear()  = 0;
     
     inline void end() { quited = true; }
-    inline bool has_ended() const { return quited; }
+    inline bool hasEnded() const { return this->quited; }
 
 private:
 

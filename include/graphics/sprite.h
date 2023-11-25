@@ -8,7 +8,6 @@
 #include "graphics/texture.h"
 
 class Sprite : public Drawable, public Transformable {
-    
 public:
 
     Sprite() { create(0, 0, NULL); }
@@ -16,12 +15,12 @@ public:
     
     virtual ~Sprite() = default;
 
-    void set_size(int width, int height);
-    void set_size(const Vector2& size);
+    void setSize(int width, int height);
+    void setSize(const Vector2& size);
 
-    Vector2 get_size() const { return this->size; }
+    Vector2 getSize() const { return this->size; }
 
-    void set_texture(Texture* texture);
+    void setTexture(Texture* texture);
 
 private:
 

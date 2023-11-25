@@ -18,7 +18,7 @@ public:
     void close();
 
     /* Revisa si la ventana esta abierta */
-    bool is_open() { return !this->is_closed; };
+    bool isOpen() { return !this->_isClosed; };
 
     /* Dibuja un objeto */
     void draw(const Drawable& drawable) const;
@@ -30,15 +30,15 @@ public:
     void clear();
 
     /* Carga una textura */
-    Texture* load_texture(const char* filename);
-    SDL_Renderer* get_renderer() const { return this->renderer; }
+    Texture* loadTexture(const char* filename);
+    SDL_Renderer* getRenderer() const { return _renderer; }
 
 private:
 
-    SDL_Renderer* renderer;
-    SDL_Window* window;
+    SDL_Renderer* _renderer;
+    SDL_Window* _window;
 
-    bool is_closed;
+    bool _isClosed;
 };
 
 #endif // RENDER_WINDOW_H

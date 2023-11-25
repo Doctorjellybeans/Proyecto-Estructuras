@@ -18,7 +18,7 @@ private:
 
     void update();
     void render();
-    void poll_events();
+    void pollEvents();
 
     Queue<State*> states;
     SDL_Event event;
