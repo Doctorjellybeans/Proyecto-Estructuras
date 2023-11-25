@@ -11,24 +11,33 @@ class Jugador {
     private:
         Mazo& mazo;
         Mano mano;
-        Salud salud;
+        Salud& salud;
         std::string nombreJugador;
     
     public:
-        Jugador(Mazo& mazo, const std::string& nombre) : mazo(mazo), nombreJugador(nombre) {
+        Jugador(Mazo& mazo, const std::string& nombre, Salud& salud) : mazo(mazo), nombreJugador(nombre), salud(salud) {
             mazo.rellenarMazo();
             mano.crearMano(mazo);
+            salud.crearSalud(20);
         }
 
         // ~Jugador();
-
-        // Salud& obtenerSalud;
 
         void robarCarta() {
             mano.agregarCarta(mazo);   
         }
 
-        Nodo<Carta>* jugarCarta(int posicion) {
+        void jugarCarta() {
+            Carta cartaJugada = obtenerCartaJugada();
+
+            if (salud.validarJugada(cartaJugada)) {
+                // Si funca, jugar carta
+            } else {
+                // No funca, no jugar
+            }
+        }
+
+        Nodo<Carta>* obtenerCartaJugada(int posicion) {
             return mano.buscarCarta(posicion);
         }
 

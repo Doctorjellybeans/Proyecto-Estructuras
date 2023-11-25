@@ -31,11 +31,15 @@ class Carta {
         Carta(TipoCarta tipo, TipoOperacion op, int pts) : tipo(tipo), operacion(op), puntaje(pts) {}
 
         // Métodos de acceso
-        TipoOperacion ObtenerOperacion() const {
+        TipoOperacion obtenerOperacion() const {
             return operacion;
         }
 
-        int ObtenerPuntaje() const {
+        TipoCarta obtenerTipo() const {
+            return tipo;
+        }
+
+        int obtenerPuntaje() const {
             return puntaje;
         }
 };

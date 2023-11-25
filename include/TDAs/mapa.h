@@ -19,13 +19,11 @@ class Mapa {
     private:
         int capacidad;
         int elementos;
-        std::list<NodoMapa<K, V>>* tabla;
+        std::Lista<NodoMapa<K, V>>* tabla;
 
         static const double FACTOR_DE_CARGA;
 
         int funcionHash(const K& clave) const {
-            // Función hash simple para convertir la clave a un índice en la tabla
-            // (puedes mejorarla dependiendo de tus necesidades)
             return std::hash<K>{}(clave) % capacidad;
         }
 
