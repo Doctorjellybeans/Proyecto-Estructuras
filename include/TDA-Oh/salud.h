@@ -2,164 +2,100 @@
 #define SALUD_H
 
 #include <iostream>
+#include <algorithm>
+#include <unordered_map>
 #include "TDAs/pila.h"
 #include "TDA-OH/cartas.h"
 #include "TDAs/queue.h"
 #include "TDAs/lista.h"
+#include "TDA-Oh/enum.h"
 
-enum class TipoTDA {
-    PILA,
-    COLA,
-    LISTA
-};
-
-class Salud {
-    public:
-
-    void crearSalud(int valorInicial, TipoTDA tipo) {
-        // Inicializar las estructuras de datos con el valor inicial de la salud
-        for (int i = 0; i < valorInicial; ++i) {
-            pilaSalud.apilar(i,1);
-            colaSalud.push(i);
-            listaSalud.insertarAtras(i,1);
-        }
-
-        tipoActual = tipo;
-    }
-
-    ~Salud() {}
-
-    TipoTDA obtenerTipoActual() const {
-        return tipoActual;
-    }
-
-    int esValido(Carta carta) {
-        TipoOperacion operacion = carta.obtenerOperacion();
-        TipoCarta tipoCarta = carta.obtenerTipo();
-
-        if (tipoActual == TipoTDA::PILA) {
-            
-            switch (tipoCarta) {
-                case TipoCarta::DANIO:
-                    if (operacion == TipoOperacion::Desapilar) {
-                        return 1;
-                    }
-                    return -1;
-
-                case TipoCarta::VIDA:
-                    if (operacion == TipoOperacion::Apilar) {
-                        return 2;
-                    }
-                    return -1;
-
-                default:
-                    break;
-            }
-
-        } else if (tipoActual == TipoTDA::COLA) {
-            
-            switch (tipoCarta) {
-                case TipoCarta::DANIO:
-                    if (operacion == TipoOperacion::Desencolar) {
-                        return 1;
-                    }
-                    return -1;
-
-                case TipoCarta::VIDA:
-                    if (operacion == TipoOperacion::Encolar) {
-                        return 2;
-                    }
-                    return -1;
-
-                default:
-                    break;
-            }
-
-        } else if (tipoActual == TipoTDA::LISTA) {
-            switch (tipoCarta) {
-                case TipoCarta::DANIO:
-                    if (operacion == TipoOperacion::EliminarActual) {
-                        return 1;
-                    } 
-                    return -1;
-
-                case TipoCarta::VIDA:
-                    if (operacion == TipoOperacion::InsertarActual) {
-                        return 2;
-                    }
-                    return -1;
-
-                default:
-                    break;
-            }
-        } else if (tipoCarta == TipoCarta::EFECTO) {
-            return 3;
-        }
-    }
-
-    void causarDanio(int puntajeCarta) {
-        for (int i = 0; i < puntajeCarta; i++) {
-            pilaSalud.desapilar();
-            colaSalud.pop();
-            listaSalud.eliminarAtras();
-        }
-    }
-
-    void curarVida(int puntajeCarta) {
-        for (int i = 0; i < puntajeCarta; i++) {
-            pilaSalud.desapilar();
-            colaSalud.pop();
-            listaSalud.eliminarAtras();
-        }
-    }
-
-    void cambiarSiguiente() {
-        switch (tipoActual) {
-            case TipoTDA::PILA:
-                tipoActual = TipoTDA::COLA;
-                break;
-            case TipoTDA::COLA:
-                tipoActual = TipoTDA::LISTA;
-                break;
-            case TipoTDA::LISTA:
-                tipoActual = TipoTDA::PILA;
-                break;
-        }
-    }
-
-
-    void operacion(Carta carta) {
-        int puntajeCarta = carta.obtenerPuntaje();
-        int tipoCarta = esValido(carta);
-
-        if (tipoCarta == -1) { // No se puede operar
-            
-        } else { // Se puede operar
-            
-            switch (tipoCarta) {
-                case 1: // DANIO
-                    causarDanio(puntajeCarta);
-                    break;
-                case 2: // SALUD
-                    curarVida(puntajeCarta);
-                    break;
-
-                case 3: // EFECTO
-                    cambiarSiguiente();
-                    break;
-
-                default:
-                    break;
-            }
-        }
-    }
-
+class BarraSalud {
     private:
+        int puntos;
+
         Pila<int> pilaSalud;
         Queue<int> colaSalud;
         Lista<int> listaSalud;
 
         TipoTDA tipoActual;
+
+    public:
+        BarraSalud(int puntosIniciales, TipoTDA tipoTdaInicial) : puntos(puntosIniciales), tipoActual(tipoTdaInicial) {
+            
+            for (int i = 0; i < puntosIniciales; i++) {
+                pilaSalud.apilar(i,1);
+                colaSalud.push(i);
+                listaSalud.insertarAtras(i,1);
+            }
+        }
+
+        TipoTDA buscarTipoTDAInversa(OperacionTDA operacion) {
+            std::unordered_map<OperacionTDA, TipoTDA> mapaOperacionTipo = {
+                {OperacionTDA::APILAR, TipoTDA::PILA},
+                {OperacionTDA::DESAPILAR, TipoTDA::PILA},
+                {OperacionTDA::ENCOLAR, TipoTDA::COLA},
+                {OperacionTDA::DESENCOLAR, TipoTDA::COLA},
+                {OperacionTDA::INSERTAR, TipoTDA::LISTA},  
+                {OperacionTDA::ELIMINAR, TipoTDA::LISTA},
+                {OperacionTDA::CAMBIARTDA, TipoTDA::ESPECIAL}
+            };
+
+            
+            // Busca la operación inversa en el mapa
+            auto iterador = mapaOperacionTipo.find(operacion);
+
+            // Si se encuentra, devuelve el tipo asociado; de lo contrario, devuelve un valor predeterminado
+            if (iterador != mapaOperacionTipo.end()) {
+                return iterador->second;
+            } else {
+                return TipoTDA::ESPECIAL; 
+            }
+        }
+
+        bool jugadaEsValida(TipoTDA tdaHP, OperacionTDA operacionCarta) {
+            TipoTDA comparacion = buscarTipoTDAInversa(operacionCarta);
+
+            return comparacion == tdaHP;
+        }
+
+        void recibirDanio(int cantidadDanio, OperacionTDA operacionCarta) {
+            if (jugadaEsValida(tipoActual, operacionCarta)){
+                for (int i = 0; i < cantidadDanio; i++) {
+                    pilaSalud.desapilar();
+                    colaSalud.pop();
+                    listaSalud.eliminarFrente();
+                }
+
+                puntos -= cantidadDanio;
+                if (puntos < 0) {
+                    puntos = 0;
+                }
+            }   
+        }
+
+        void curar(int cantidadCuracion, OperacionTDA operacionCarta) {
+            if (jugadaEsValida(tipoActual, operacionCarta)) {
+                int tope = puntos + cantidadCuracion;
+                for (int i = puntos; i < tope; i++) {
+                    pilaSalud.apilar(i,1);
+                    colaSalud.push(i);
+                    listaSalud.insertarAtras(i,1);
+                }
+                puntos += cantidadCuracion;
+                if (puntos > 20) {
+                    puntos = 20;
+                }
+            }
+        }
+
+        int obtenerPuntos() {
+            return puntos;
+        }
+
+        TipoTDA obtenerTDA() {
+            return tipoActual;
+        }
 
 };
 

@@ -1,45 +1,46 @@
 #ifndef JUGADOR_H
 #define JUGADOR_H
 
+#include "TDAs/lista.h"
+#include "TDA-Oh/cartas.h"
+#include "TDA-Oh/salud.h"
+#include "TDA-Oh/mazo.h"
+
 #include <iostream>
-#include <string>
-#include "mano.h"
-#include "salud.h"
-#include "mazo.h"
 
 class Jugador {
     private:
-        Mazo& mazo;
-        Mano mano;
-        Salud& salud;
-        std::string nombreJugador;
-    
+        BarraSalud barraSalud;
+        Lista<Carta*> mano;
+
     public:
-        Jugador(Mazo& mazo, const std::string& nombre, Salud& salud) : mazo(mazo), nombreJugador(nombre), salud(salud) {
-            mano.crearMano(mazo);
-            salud.crearSalud(20,TipoTDA::PILA);
+        Jugador(int puntosSaludInicial, TipoTDA tipoTdaInicial) : barraSalud(puntosSaludInicial, tipoTdaInicial)  {}
+
+        void recibirDanio(int cantidadDanio, OperacionTDA operacionCarta) {
+            barraSalud.recibirDanio(cantidadDanio, operacionCarta);
         }
 
-        void robarCarta() {
-            mano.agregarCarta(mazo);   
+        void curar(int cantidadDanio, OperacionTDA operacionCarta) {
+            barraSalud.recibirDanio(cantidadDanio, operacionCarta);
         }
 
-        void jugarCarta(int posicion) {
-            Carta cartaJugada = obtenerCartaJugada(posicion);
+        void agregarCartaAMano(Mazo& mazo) {
+            Carta* cartaTope = mazo.sacarCarta();
+            mano.insertarFrente(0, cartaTope);
         }
 
-        void manoJugador(){
-            mano.mostrarMano();
+        void jugarCarta() {}
+
+        int obtenerSalud() const {
+            return 0;
         }
 
-        Carta obtenerCartaJugada(int posicion) {
-            Nodo<Carta>* nodo = mano.buscarCarta(posicion);
-            Carta carta = nodo->valor;
-            return carta;
+        TipoTDA obtenerTipoTDA() {
+            return barraSalud.obtenerTDA();
         }
 
-        bool pasarTurno();
-};  
+        
+};
 
 
 #endif // JUGADOR_H

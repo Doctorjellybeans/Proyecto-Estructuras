@@ -2,45 +2,35 @@
 #define CARTAS_H
 
 #include <iostream>
-#include <string>
+#include "TDA-Oh/jugador.h"
+#include "TDA-Oh/enum.h"
 
-enum class TipoOperacion {
-    Apilar,
-    InsertarActual,
-    Encolar,
-    Desapilar,
-    Desencolar,
-    EliminarActual,
-    CambiarTda
-};
-
-enum class TipoCarta {
-    DANIO,
-    VIDA,
-    EFECTO
-};
 
 class Carta {
     private:
-        TipoOperacion operacion;
-        TipoCarta tipo;
-        int puntaje;
-
+        OperacionTDA operacion;
+    
     public:
-        // Constructor
-        Carta(TipoCarta tipo, TipoOperacion op, int pts) : tipo(tipo), operacion(op), puntaje(pts) {}
+        Carta(OperacionTDA operacionCarta) : operacion(operacionCarta) {}
 
-        // Métodos de acceso
-        TipoOperacion obtenerOperacion() const {
+        virtual void aplicarEfecto(Jugador& objetivo) const = 0;
+        
+        OperacionTDA obtenerOperacionTDA() const {
             return operacion;
         }
 
-        TipoCarta obtenerTipo() const {
-            return tipo;
-        }
+        virtual ~Carta() {}
+};
 
-        int obtenerPuntaje() const {
-            return puntaje;
+class CartaDanio : public Carta {
+    private:
+        int cantidadDanio;
+        
+    public:
+        CartaDanio(int danio, OperacionTDA operacionCarta) : Carta(operacionCarta), cantidadDanio(danio) {}
+
+        void aplicarEfecto(Jugador& objetivo) const override {
+            objetivo.recibirDanio(cantidadDanio, obtenerOperacionTDA());
         }
 };
 
