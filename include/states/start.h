@@ -8,7 +8,7 @@ class StartState : public State {
 
 public:
 
-    StartState();
+    StartState(StateQueue* origin);
     ~StartState();
 
     void update();

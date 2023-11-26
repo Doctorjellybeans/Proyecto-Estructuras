@@ -2,7 +2,10 @@
 
 #include <stdio.h>
 
-StartState::StartState() {
+StartState::StartState(StateQueue* origin) {
+
+    this->origin = origin;
+
     this->window = new RenderWindow("TDA-OH!", 800, 600);
 
     Texture* texure = window->loadTexture("assets/images/play_button.png");
@@ -19,6 +22,7 @@ StartState::StartState() {
 
     backgroundTexture = window->loadTexture("assets/images/background1.png");
     background.setTexture(backgroundTexture);
+    
 }
 
 StartState::~StartState() {
@@ -47,6 +51,8 @@ void StartState::update() {
         }
 
         if (quitButton.isClicked(x, y)) {
+            State* s = new StartState(origin);
+            pushState(s);
             end();
         }
     }

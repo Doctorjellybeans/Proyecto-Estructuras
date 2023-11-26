@@ -2,8 +2,6 @@
 #define APPLIACATION_H
 
 #include "state.h"
-#include "TDAs/queue.h"
-
 #include <SDL2/SDL_events.h>
 
 class Application {
@@ -22,7 +20,7 @@ private:
 
     State* currentState() { return this->states.top(); }
 
-    Queue<State*> states;
+    StateQueue states;
     SDL_Event event;
 };
 

@@ -1,7 +1,9 @@
 #ifndef UTIL_H
 #define UTIL_H
 
+void success(const char* fmt, ...);
 void error(const char* fmt, ...);
+void sleep(unsigned int ms);
 
 // Devuelve el mayor valor
 template <typename T>
@@ -21,7 +23,6 @@ T min(T a, T b) {
         return b;
 }
 
-void sleep(unsigned int ms);
 
 
 #endif //UTIL_H

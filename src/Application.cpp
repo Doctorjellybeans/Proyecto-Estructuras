@@ -2,7 +2,7 @@
 #include "states/start.h"
 
 Application::Application() {
-    State* start = new StartState();
+    State* start = new StartState(&states);
     this->states.push(start);
 }
 
