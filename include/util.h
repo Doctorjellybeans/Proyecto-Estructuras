@@ -6,22 +6,22 @@ void error(const char* fmt, ...);
 // Devuelve el mayor valor
 template <typename T>
 T max(T a, T b) {
-    if ( a > b) {
+    if ( a > b)
         return a;
-    } else {
+    else
         return b;
-    }
 }
 
 // Devuelve el menor valor
 template <typename T>
 T min(T a, T b) {
-    if ( a > b) {
+    if ( a > b)
         return a;
-    } else {
+    else 
         return b;
-    }
 }
+
+void sleep(unsigned int ms);
 
 
 #endif //UTIL_H

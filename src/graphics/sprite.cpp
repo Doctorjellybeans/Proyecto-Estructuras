@@ -40,3 +40,8 @@ void Sprite::draw(const RenderWindow* target) const {
     
     SDL_RenderCopyExF(target->getRenderer(), this->texture, NULL, &rect, rotation, NULL, SDL_FLIP_NONE);
 }
+
+bool Sprite::contains(float x, float y) {
+    return this->position.x <= x &&  this->position.x + this->size.x >= x &&
+    this->position.y <= y &&  this->position.y + this->size.y >= y;
+}

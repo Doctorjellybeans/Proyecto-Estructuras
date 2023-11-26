@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdarg.h>
 
+#include <SDL2/SDL.h>
+
 void error(const char* fmt, ...) {
     va_list args;
 
@@ -11,4 +13,8 @@ void error(const char* fmt, ...) {
     printf(" \x1b[0m\x1b[0m\n");
 
     va_end(args);
+}
+
+void sleep(unsigned int ms) {
+    SDL_Delay(ms);
 }

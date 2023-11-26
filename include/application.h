@@ -20,6 +20,8 @@ private:
     void render();
     void pollEvents();
 
+    State* currentState() { return this->states.top(); }
+
     Queue<State*> states;
     SDL_Event event;
 };

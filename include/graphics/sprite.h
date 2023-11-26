@@ -22,6 +22,8 @@ public:
 
     void setTexture(Texture* texture);
 
+    bool contains(float x, float y);
+
 private:
 
     void create(int width, int height, Texture* texture);

@@ -9,7 +9,7 @@ Application::Application() {
 Application::~Application() {
     while (!this->states.empty())
     {
-        delete this->states.top();
+        delete currentState();
         this->states.pop();
     }
 }
@@ -33,7 +33,7 @@ void Application::run() {
 }
 
 void Application::update() {
-    State* state = this->states.top();
+    State* state = currentState();
     
     if(!state->hasEnded()) {
         state->update();
@@ -46,7 +46,7 @@ void Application::update() {
 void Application::render() {
 
     if (!this->states.empty()) {
-        this->states.top()->render();
+         currentState()->render();
     }
 }
 
@@ -54,7 +54,7 @@ void Application::pollEvents() {
     switch (event.type)
     {
     case SDL_QUIT:
-        this->states.top()->end();
+        currentState()->end();
         break;
     }
 }
