@@ -59,6 +59,20 @@ class BarraSalud {
             return comparacion == tdaHP;
         }
 
+        void cambiarSiguiente() {
+            switch (tipoActual) {
+                case TipoTDA::PILA:
+                    tipoActual = TipoTDA::COLA;
+                    break;
+                case TipoTDA::COLA:
+                    tipoActual = TipoTDA::LISTA;
+                    break;
+                case TipoTDA::LISTA:
+                    tipoActual = TipoTDA::PILA;
+                    break;
+            }
+        }
+
         void recibirDanio(int cantidadDanio, OperacionTDA operacionCarta) {
             if (jugadaEsValida(tipoActual, operacionCarta)){
                 for (int i = 0; i < cantidadDanio; i++) {
@@ -87,6 +101,10 @@ class BarraSalud {
                     puntos = 20;
                 }
             }
+        }
+
+        void cambiarTDA() {
+
         }
 
         int obtenerPuntos() {

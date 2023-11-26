@@ -24,6 +24,10 @@ class Jugador {
             barraSalud.recibirDanio(cantidadDanio, operacionCarta);
         }
 
+        void cambiarTDA() {
+            barraSalud.cambiarTDA();
+        }
+
         void agregarCartaAMano(Mazo& mazo) {
             Carta* cartaTope = mazo.sacarCarta();
             mano.insertarFrente(0, cartaTope);

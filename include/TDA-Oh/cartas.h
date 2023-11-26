@@ -27,10 +27,31 @@ class CartaDanio : public Carta {
         int cantidadDanio;
         
     public:
-        CartaDanio(int danio, OperacionTDA operacionCarta) : Carta(operacionCarta), cantidadDanio(danio) {}
+        CartaDanio(OperacionTDA operacionCarta, int danio) : Carta(operacionCarta), cantidadDanio(danio) {}
 
         void aplicarEfecto(Jugador& objetivo) const override {
             objetivo.recibirDanio(cantidadDanio, obtenerOperacionTDA());
+        }
+};
+
+class CartaVida : public Carta {
+    private:
+        int cantidadCura;
+    
+    public:
+        CartaVida(OperacionTDA operacionCarta, int cura) : Carta(operacionCarta), cantidadCura(cura) {}
+
+        void aplicarEfecto(Jugador& objetivo) const override {
+            objetivo.curar(cantidadCura, obtenerOperacionTDA());
+        } 
+};
+
+class CartaEfecto : public Carta {
+    public:
+        CartaEfecto(OperacionTDA operacionCarta) : Carta(operacionCarta) {}
+
+        void aplicarEfecto(Jugador& objetivo) const override {
+            objetivo.cambiarTDA();
         }
 };
 
