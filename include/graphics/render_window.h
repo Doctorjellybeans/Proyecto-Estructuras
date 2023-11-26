@@ -11,7 +11,7 @@ class RenderWindow {
 
 public:
 
-    RenderWindow(const char* title, int width, int height);
+    RenderWindow(const char* title, int width, int height, int posX = SDL_WINDOWPOS_CENTERED, int posY = SDL_WINDOWPOS_CENTERED);
     ~RenderWindow();
 
     /* Cierra la ventana */
@@ -34,6 +34,8 @@ public:
     SDL_Renderer* getRenderer() const { return _renderer; }
 
 private:
+
+    void create();
 
     SDL_Renderer* _renderer;
     SDL_Window* _window;

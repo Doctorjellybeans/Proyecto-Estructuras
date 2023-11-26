@@ -5,8 +5,8 @@
 #include <SDL2/SDL_image.h>
 #include <stdio.h>
 
-RenderWindow::RenderWindow(const char* title, int width, int height) {
-    this->_window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_SHOWN);
+RenderWindow::RenderWindow(const char* title, int width, int height, int posX, int posY) {
+    this->_window = SDL_CreateWindow(title, posX, posY, width, height, SDL_WINDOW_SHOWN);
     this->_renderer = SDL_CreateRenderer(_window, -1, 0);
 
     SDL_RenderSetVSync(this->_renderer, 1); // sincronización vertical

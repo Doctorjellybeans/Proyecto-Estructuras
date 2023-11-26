@@ -1,5 +1,6 @@
 #include "states/start.h"
 
+#include "states/duel.h"
 #include <stdio.h>
 
 StartState::StartState(StateQueue* origin) {
@@ -43,7 +44,9 @@ void StartState::update() {
     if (mouseState & SDL_BUTTON(SDL_BUTTON_LEFT)) {
         
         if (playButton.isClicked(x, y)) {
-            printf("jugar\n");
+            State* s = new DuelState(origin);
+            pushState(s);
+            end();
         }
 
         if (rulesButton.isClicked(x, y)) {
