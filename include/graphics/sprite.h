@@ -22,6 +22,8 @@ public:
 
     void setTexture(Texture* texture);
 
+    /* Revisa si contiene un puntoe en rectangulo que forma
+    su posicion con su tamaño (ingnora la rotación)*/
     bool contains(float x, float y);
 
 private:

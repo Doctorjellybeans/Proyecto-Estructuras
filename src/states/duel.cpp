@@ -8,10 +8,12 @@ DuelState::DuelState(StateQueue* origin) {
     this->window1 = new RenderWindow("TDA-OH! - Jugador1", 400, 400, 300);
     this->window2 = new RenderWindow("TDA-OH! - Jugador2", 400, 400, 800);
 
-    tex1 = window1->loadTexture("assets/ihavet.png");
+    this->textures = new TextureManager(this->window1, this->window2);
+    
+    tex1 =  getTexture("assets/ihavet.png", 1);
     sprite1.setTexture(tex1);
 
-    tex2 = window2->loadTexture("assets/wosides.png");
+    tex2 = getTexture("assets/wosides.png", 2);
     sprite2.setTexture(tex2);
 }
 
@@ -25,8 +27,8 @@ void DuelState::update() {
 }
 
 void DuelState::render() {
-    window1->draw(sprite1);
-    window2->draw(sprite2);
+    draw(sprite1, 1);
+    draw(sprite2, 2);
 }
 
 void DuelState::clear() {
@@ -56,5 +58,14 @@ void DuelState::pollEvents() {
             end();
             break;
         }
+    }
+}
+
+void DuelState::draw(const Drawable& drawable, int value) const {
+    if (value == 1) {
+        this->window1->draw(drawable);
+    }
+    else {
+        this->window2->draw(drawable);
     }
 }
