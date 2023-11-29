@@ -64,10 +64,12 @@ private:
 
 template <typename T1, typename T2>
 Map<T1, T2>::Map()
-    : size(0), capacity(64), current(-1)
+    : size(0), capacity(2), current(-1)
 {
     this->buckets = new List<_Pair>[this->capacity];
 }
+
+#include <iostream>
 
 template <typename T1, typename T2>
 Map<T1, T2>::~Map()
@@ -82,6 +84,7 @@ Map<T1, T2>::~Map()
 
             if (pair != nullptr)
             {
+                std::cout << pair->key << std::endl;
                 delete pair;
             }
         }
@@ -206,14 +209,17 @@ void Map<T1, T2>::enlarge()
 
     for (size_t i = 0; i < oldCapacity; i++)
     {
-        List<_Pair> list = this->buckets[i];
-        _Pair* ptr = list.first();
-        while (ptr != nullptr)
-        {
-            insert(ptr->key, ptr->value);
-            delete ptr;
+        List<_Pair>& list = oldBuckets[i];
 
-            ptr = list.next();
+        while (!list.empty())
+        {
+            _Pair* pair = list.popFront();
+
+            if (pair != nullptr)
+            {
+                insert(pair->key, pair->value);
+                delete pair;
+            }
         }
         
     }
