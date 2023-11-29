@@ -1,7 +1,7 @@
 #ifndef LIST_H
 #define LIST_H
 
-#include <iostream>
+#include <ctype.h>
 
 template <typename T>
 class List
@@ -9,7 +9,7 @@ class List
 public:
 
     List();
-    ~List() = default;
+    ~List();
 
     T* first();
     T* last();
@@ -30,6 +30,9 @@ public:
 
     bool empty() { return this->_head == nullptr; }
 
+    void clean();
+    size_t size() { return this->_size; }
+
 private:
 
     template <typename K>
@@ -45,6 +48,8 @@ private:
     Node<T*>* _current;
     Node<T*>* _head;
     Node<T*>* _tail;
+
+    size_t _size = 0;
 };
 
 template <typename T>
@@ -52,6 +57,12 @@ List<T>::List()
     : _current(nullptr), _head(nullptr), _tail(nullptr)
 {
 
+}
+
+template <typename T>
+List<T>::~List()
+{
+    clean();
 }
 
 template <typename T>
@@ -93,7 +104,7 @@ T* List<T>::prev()
     if (this->_current == nullptr)
         return nullptr;
 
-    this->_current = this->_current->_tail;
+    this->_current = this->_current->_prev;
     if (this->_current == nullptr)
       return nullptr;
 
@@ -106,7 +117,7 @@ T* List<T>::current()
     if (this->_current == nullptr)
         return nullptr;
 
-    return this->_current->data;
+    return this->_current->_data;
 }
 
 template <typename T>
@@ -126,6 +137,8 @@ void List<T>::pushFront(T* data)
     node->_next = this->_head;
 
     this->_head = node;
+
+    this->_size++;
 }
 
 template <typename T>
@@ -145,6 +158,8 @@ void List<T>::pushBack(T* data)
     node->_prev = this->_tail;
 
     this->_tail = node;
+
+    this->_size++;
 }
 
 template <typename T>
@@ -176,6 +191,7 @@ void List<T>::pushCurrent(T* data)
     }
 
     this->_current->_next = node;
+    this->_size++;
 }
 
 template <typename T>
@@ -195,6 +211,8 @@ T* List<T>::popFront()
 
     T* data = node->_data;
     delete node;
+
+    this->_size--;
 
     return data;
 }
@@ -216,6 +234,8 @@ T* List<T>::popBack()
 
     T* data = node->_data;
     delete node;
+
+    this->_size--;
 
     return data;
 }
@@ -242,6 +262,8 @@ T* List<T>::popCurrent()
     T* data = node->_data;
     delete node;
 
+    this->_size--;
+
     return data;
 }
 
@@ -258,6 +280,21 @@ T* List<T>::search(T data)
     }
     
     return nullptr;
+}
+
+template <typename T>
+void List<T>::clean()
+{
+    while (!empty())
+    {
+        Node<T*>* node = this->_head;
+        this->_head = this->_head->_next;
+        delete node;
+        this->_size--;
+    }
+
+    this->_current = nullptr;
+    this->_tail = nullptr;
 }
 
 #endif //LIST_H

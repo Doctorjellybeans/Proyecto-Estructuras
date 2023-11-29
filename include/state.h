@@ -9,11 +9,13 @@ class State {
 public:
 
     State(): quited(false)  {}
-    virtual ~State() { success("¡Estado cerrado!"); };
+    virtual ~State() {};
 
     virtual void render() = 0;
     virtual void update() = 0;
     virtual void clear()  = 0;
+    
+    virtual void pollEvents() = 0;
     
     inline void end() { quited = true; }
     inline bool hasEnded() const { return this->quited; }
