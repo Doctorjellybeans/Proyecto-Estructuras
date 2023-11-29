@@ -5,38 +5,43 @@
 #include "graphics/render_window.h"
 
 void Sprite::create(int width, int height, SDL_Texture* texture) {
-    set_size(width, height);
+    setSize(width, height);
     this->texture = texture;
 
 }
 
-void Sprite::set_size(int width, int height) {
+void Sprite::setSize(int width, int height) {
     this->size.x = width;
     this->size.y = height;
 }
 
-void Sprite::set_size(const Vector2& size) {
+void Sprite::setSize(const Vector2& size) {
     this->size = size;
 }
 
-void Sprite::set_texture(Texture* texture) {
+void Sprite::setTexture(Texture* texture) {
     int width, height;
     
     // Consigue el tamaño de la textura
     SDL_QueryTexture(texture, NULL, NULL, &width, &height);
 
     this->texture = texture;
-    set_size(width, height);
+    setSize(width, height);
 }
 
 void Sprite::draw(const RenderWindow* target) const {
     SDL_FRect rect;
-    rect.w = get_size().x * get_scale().x;
-    rect.h = get_size().y * get_scale().y;
+    rect.w = getSize().x * getScale().x;
+    rect.h = getSize().y * getScale().y;
 
     // Calcular la posición centrada
-    rect.x = get_position().x - (rect.w - get_size().x) / 2.0f;
-    rect.y = get_position().y - (rect.h - get_size().y) / 2.0f;
+    rect.x = getPosition().x - (rect.w - getSize().x) / 2.0f;
+    rect.y = getPosition().y - (rect.h - getSize().y) / 2.0f;
     
-    SDL_RenderCopyExF(target->get_renderer(), this->texture, NULL, &rect, rotation, NULL, SDL_FLIP_NONE);
+    SDL_RenderCopyExF(target->getRenderer(), this->texture, NULL, &rect, rotation, NULL, SDL_FLIP_NONE);
+}
+
+bool Sprite::contains(float x, float y) {
+    return this->position.x <= x &&  this->position.x + this->size.x >= x &&
+    this->position.y <= y &&  this->position.y + this->size.y >= y;
 }

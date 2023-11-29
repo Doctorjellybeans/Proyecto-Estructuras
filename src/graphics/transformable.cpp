@@ -8,44 +8,44 @@ Transformable::Transformable() {
     this->rotation = 0;
 }
 
-void Transformable::set_position(float x, float y) {
+void Transformable::setPosition(float x, float y) {
     this->position.x = x;
     this->position.y = y;
 }
 
-void Transformable::set_position(const Vector2& position) {
+void Transformable::setPosition(const Vector2& position) {
     this->position = position;
 }
 
 void Transformable::move(float x, float y) {
-    set_position(this->position.x + x, this->position.y + y);
+    setPosition(this->position.x + x, this->position.y + y);
 }
 
 void Transformable::move(const Vector2& offset) {
-    set_position(this->position.x + offset.x, this->position.y + offset.y);
+    setPosition(this->position.x + offset.x, this->position.y + offset.y);
 }
 
-void Transformable::set_scale(float x, float y) {
+void Transformable::setScale(float x, float y) {
     this->scalar.x = x;
     this->scalar.y = y;
 }
 
-void Transformable::set_scale(const Vector2& scale) {
-    set_scale(scale.y, scale.x);
+void Transformable::setScale(const Vector2& scale) {
+    setScale(scale.y, scale.x);
 }
 
-void Transformable::set_scale(float scale) {
-    set_scale(scale, scale);
+void Transformable::setScale(float scale) {
+    setScale(scale, scale);
 }
 
 void Transformable::scale(float x, float y) {
-    set_scale(this->scalar.x * x, this->scalar.y * y);
+    setScale(this->scalar.x * x, this->scalar.y * y);
 }
 
 void Transformable::scale(const Vector2& scale) {
-    set_scale(this->scalar.x * scale.x, this->scalar.y * scale.y);
+    setScale(this->scalar.x * scale.x, this->scalar.y * scale.y);
 }
 
 void Transformable::scale(float scale) {
-    set_scale(this->scalar.x * scale, this->scalar.y * scale);
+    setScale(this->scalar.x * scale, this->scalar.y * scale);
 }

@@ -8,7 +8,7 @@ class StartState : public State {
 
 public:
 
-    StartState();
+    StartState(StateQueue* origin);
     ~StartState();
 
     void update();
@@ -17,8 +17,24 @@ public:
 
 private:
 
+    struct Button {
+        Sprite sprite;
+        Texture* texure = nullptr;
+
+        bool isClicked(float x, float y) { return sprite.contains(x, y); }
+        void setTexture(Texture* texture) { sprite.setTexture(texture); }
+        void setPosition(float x, float y) { sprite.setPosition(x, y); }
+    };
+
+    void draw(Drawable& drawable) { this->window->draw(drawable); }
+
     RenderWindow* window;
-    Text title;
+    Button playButton;
+    Button rulesButton;
+    Button quitButton;
+
+    Sprite background;
+    Texture* backgroundTexture;
 };
 
 #endif // STATE_START_H

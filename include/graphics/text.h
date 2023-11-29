@@ -11,42 +11,42 @@ class Text : public Drawable, public Transformable {
 public:
 
     Text(const char* text = "Inserte Texto", const char* font = "assets/fonts/source_code_pro.ttf")
-        : text(text), font_dir(font) {};
+        : text(text), fontDir(font) {};
 
     virtual ~Text();
 
     /* Cambia el texto ha mostar */
-    void set_text(const char* string);
+    void setText(const char* string);
 
     /* Cambia la fuente a mostrar */
-    void set_font(const char* filename);
+    void setFont(const char* filename);
 
     /* Cambia el tamaño de fuente */
-    void set_size(int size);
+    void setSize(int size);
 
     /* Cambia el color del texto */
-    void set_color(Color color) { this->color = color; }
+    void setColor(Color color) { this->color = color; }
 
-    void set_scale(float x, float y) override;
-    void set_scale(const Vector2& scale) override;
-    void set_scale(const float scale) override;
+    void setScale(float x, float y) override;
+    void setScale(const Vector2& scale) override;
+    void setScale(const float scale) override;
 
 private:
 
     /* Actualiza la textura donde se renderisa el texto */
-    void update_texture(const RenderWindow* target) const;
+    void updateTexture(const RenderWindow* target) const;
     virtual void draw(const RenderWindow* target) const override;
 
     const char* text;
-    const char* font_dir;
-    int font_size = 12;
+    const char* fontDir;
+    int fontSize = 12;
     Color color;
 
     // Ninguno ha de tener getters
     mutable Vector2i size;
     mutable Texture* texture = nullptr;
-    mutable bool need_update = true;
-    mutable SDL_Renderer* last_renderer = nullptr;
+    mutable bool needUpdate = true;
+    mutable SDL_Renderer* lastRenderer = nullptr;
 };
 
 

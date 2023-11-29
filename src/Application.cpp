@@ -2,14 +2,14 @@
 #include "states/start.h"
 
 Application::Application() {
-    State* start = new StartState();
+    State* start = new StartState(&states);
     this->states.push(start);
 }
 
 Application::~Application() {
     while (!this->states.empty())
     {
-        delete this->states.top();
+        delete currentState();
         this->states.pop();
     }
 }
@@ -20,7 +20,7 @@ void Application::run() {
     {
         while(SDL_PollEvent(&this->event))
         {
-            poll_events();
+            pollEvents();
         }
 
         update();
@@ -33,9 +33,9 @@ void Application::run() {
 }
 
 void Application::update() {
-    State* state = this->states.top();
+    State* state = currentState();
     
-    if(!state->has_ended()) {
+    if(!state->hasEnded()) {
         state->update();
     } else {
         this->states.pop();
@@ -46,15 +46,15 @@ void Application::update() {
 void Application::render() {
 
     if (!this->states.empty()) {
-        this->states.top()->render();
+         currentState()->render();
     }
 }
 
-void Application::poll_events() {
+void Application::pollEvents() {
     switch (event.type)
     {
     case SDL_QUIT:
-        this->states.top()->end();
+        currentState()->end();
         break;
     }
 }
