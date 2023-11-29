@@ -1,9 +1,8 @@
 #ifndef MAP_H
 #define MAP_H
 
-#include "list.h"
+#include "TDAs/list.h"
 #include <ctype.h>
-#include <iostream>
 
 template <typename T1, typename T2>
 struct Pair
@@ -34,22 +33,12 @@ public:
     using _Pair = Pair<T1, T2*>;
 
     void insert(T1 key, T2* value);
+    void insert(T1 key, T2 value) { insert(key, new T2(value)); }
     void erase(T1 key);
 
     T2* search(T1 key);
     T2* first();
     T2* next();
-
-    size_t hash(T1 key)
-    {
-        size_t hash = 0;
-        unsigned char* ptr;
-
-        for (ptr = (unsigned char*)(&key); *ptr != '\0'; ptr++)
-            hash += hash * 32 + tolower(*ptr);
-
-        return hash % this->capacity;
-    }
 
 private:
 
@@ -61,11 +50,21 @@ private:
     size_t capacity;
     size_t current;
 
+    size_t hash(T1 key)
+    {
+        size_t hash = 0;
+        unsigned char* ptr;
+
+        for (ptr = (unsigned char*)(&key); *ptr != '\0'; ptr++)
+            hash += hash * 32 + tolower(*ptr);
+
+        return hash % this->capacity;
+    }
 };
 
 template <typename T1, typename T2>
 Map<T1, T2>::Map()
-    : size(0), capacity(2), current(-1)
+    : size(0), capacity(64), current(-1)
 {
     this->buckets = new List<_Pair>[this->capacity];
 }
@@ -73,6 +72,21 @@ Map<T1, T2>::Map()
 template <typename T1, typename T2>
 Map<T1, T2>::~Map()
 {
+    for (size_t i = 0; i < this->capacity; i++)
+    {
+        List<_Pair>& list = this->buckets[i];
+
+        while (!list.empty())
+        {
+            _Pair* pair = list.popFront();
+
+            if (pair != nullptr)
+            {
+                delete pair;
+            }
+        }
+    }
+
     delete[] this->buckets;
 }
 
