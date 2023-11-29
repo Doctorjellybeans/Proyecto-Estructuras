@@ -1,5 +1,6 @@
 #include "application.h"
 #include "states/start.h"
+#include "util.h"
 
 Application::Application() {
     State* start = new StartState(&states);
@@ -14,20 +15,18 @@ Application::~Application() {
     }
 }
 
+// Bucle principal de la aplicación
 void Application::run() {
 
     while (!this->states.empty())
     {
-        while(SDL_PollEvent(&this->event))
-        {
-            pollEvents();
-        }
+        currentState()->pollEvents();
 
         update();
         render();
 
         if (!this->states.empty()) {
-            this->states.top()->clear();
+            currentState()->clear();
         }
     }
 }
@@ -47,14 +46,5 @@ void Application::render() {
 
     if (!this->states.empty()) {
          currentState()->render();
-    }
-}
-
-void Application::pollEvents() {
-    switch (event.type)
-    {
-    case SDL_QUIT:
-        currentState()->end();
-        break;
     }
 }

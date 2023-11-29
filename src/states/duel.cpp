@@ -20,7 +20,6 @@ DuelState::~DuelState() {
     delete this->window2;
 }
 
-
 void DuelState::update() {
 
 }
@@ -52,12 +51,10 @@ void DuelState::pollEvents() {
                 break;
             }
             break;
+
         case SDL_QUIT:
-            // Handle quit event (application-wide)
             end();
             break;
         }
-
-        success("%i --- %i", event.type, event.window.event);
     }
 }
