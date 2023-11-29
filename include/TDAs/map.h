@@ -43,12 +43,11 @@ public:
 private:
 
     void enlarge();
-    List<_Pair>* buckets;
-
 
     size_t size;
     size_t capacity;
     size_t current;
+    List<_Pair>* buckets;
 
     size_t hash(T1 key)
     {
@@ -69,8 +68,6 @@ Map<T1, T2>::Map()
     this->buckets = new List<_Pair>[this->capacity];
 }
 
-#include <iostream>
-
 template <typename T1, typename T2>
 Map<T1, T2>::~Map()
 {
@@ -83,10 +80,7 @@ Map<T1, T2>::~Map()
             _Pair* pair = list.popFront();
 
             if (pair != nullptr)
-            {
-                std::cout << pair->key << std::endl;
                 delete pair;
-            }
         }
     }
 

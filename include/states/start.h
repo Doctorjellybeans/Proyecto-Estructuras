@@ -14,6 +14,8 @@ public:
     void update();
     void render();
     void clear();
+    
+    void pollEvents();
 
 private:
 

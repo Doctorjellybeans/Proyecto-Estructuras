@@ -40,7 +40,7 @@ private:
     SDL_Renderer* _renderer;
     SDL_Window* _window;
 
-    bool _isClosed;
+    bool _isClosed = false;
 };
 
 #endif // RENDER_WINDOW_H

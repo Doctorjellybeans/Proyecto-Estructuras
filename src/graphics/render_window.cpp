@@ -10,8 +10,6 @@ RenderWindow::RenderWindow(const char* title, int width, int height, int posX, i
     this->_renderer = SDL_CreateRenderer(_window, -1, 0);
 
     SDL_RenderSetVSync(this->_renderer, 1); // sincronización vertical
-
-    _isClosed = false;
 }
 
 RenderWindow::~RenderWindow() {

@@ -37,3 +37,27 @@ void DuelState::clear() {
     this->window2->display();
     this->window2->clear();
 }
+
+void DuelState::pollEvents() {
+    SDL_Event event;
+    while(SDL_PollEvent(&event))
+    {
+        switch (event.type)
+        {
+        case SDL_WINDOWEVENT:
+            switch (event.window.event)
+            {
+            case SDL_WINDOWEVENT_CLOSE:
+                end();
+                break;
+            }
+            break;
+        case SDL_QUIT:
+            // Handle quit event (application-wide)
+            end();
+            break;
+        }
+
+        success("%i --- %i", event.type, event.window.event);
+    }
+}

@@ -16,7 +16,6 @@ private:
 
     void update();
     void render();
-    void pollEvents();
 
     State* currentState() { return this->states.top(); }
 

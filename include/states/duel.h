@@ -15,6 +15,8 @@ public:
     void render();
     void clear();
 
+    void pollEvents();
+
 private:
 
     RenderWindow* window1;
