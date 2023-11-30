@@ -3,6 +3,9 @@
 
 #include <SDL2/SDL.h>
 
+// - Quiero std::print()
+// + Pero si tenemos std::print() en casa
+// std::print() en casa:
 void success(const char* fmt, ...)
 {
     va_list args;

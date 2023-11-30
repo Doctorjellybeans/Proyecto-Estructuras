@@ -18,7 +18,7 @@ public:
     /* Cambia el texto ha mostar */
     void setText(const char* string);
 
-    /* Cambia la fuente a mostrar */
+    /* Cambia la fuente ha mostrar */
     void setFont(const char* filename);
 
     /* Cambia el tamaño de fuente */
@@ -27,6 +27,7 @@ public:
     /* Cambia el color del texto */
     void setColor(Color color) { this->color = color; }
 
+    // Funciones especificas de escalado
     void setScale(float x, float y) override;
     void setScale(const Vector2& scale) override;
     void setScale(const float scale) override;

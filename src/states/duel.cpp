@@ -8,7 +8,7 @@ DuelState::DuelState(StateQueue* origin) {
     this->window1 = new RenderWindow("TDA-OH! - Jugador1", 400, 400, 300);
     this->window2 = new RenderWindow("TDA-OH! - Jugador2", 400, 400, 800);
 
-    this->textures = new TextureManager(this->window1, this->window2);
+    this->textures = new TextureManager(this->window1, this->window2); // TODO: Falta limpiar esta cosa
     
     tex1 =  getTexture("assets/ihavet.png", 1);
     sprite1.setTexture(tex1);

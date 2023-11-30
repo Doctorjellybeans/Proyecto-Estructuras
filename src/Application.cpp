@@ -43,8 +43,7 @@ void Application::update() {
 }
 
 void Application::render() {
-
     if (!this->states.empty()) {
-         currentState()->render();
+        currentState()->render();
     }
 }

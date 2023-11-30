@@ -9,6 +9,7 @@ StartState::StartState(StateQueue* origin) {
 
     this->window = new RenderWindow("TDA-OH!", 800, 600);
 
+    // Carga las texturas de los botones
     Texture* texure = window->loadTexture("assets/images/play_button.png");
     playButton.setTexture(texure);
     playButton.setPosition(219, 308);
@@ -21,9 +22,9 @@ StartState::StartState(StateQueue* origin) {
     quitButton.setTexture(texure);
     quitButton.setPosition(219, 484);
 
+    // Fondo
     backgroundTexture = window->loadTexture("assets/images/background1.png");
     background.setTexture(backgroundTexture);
-    
 }
 
 StartState::~StartState() {
@@ -54,8 +55,6 @@ void StartState::update() {
         }
 
         if (quitButton.isClicked(x, y)) {
-            State* s = new StartState(origin);
-            pushState(s);
             end();
         }
     }

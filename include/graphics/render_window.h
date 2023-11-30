@@ -31,11 +31,11 @@ public:
 
     /* Carga una textura */
     Texture* loadTexture(const char* filename);
+
+    /* Consiguie el renderer de SDL*/
     SDL_Renderer* getRenderer() const { return _renderer; }
 
 private:
-
-    void create();
 
     SDL_Renderer* _renderer;
     SDL_Window* _window;

@@ -19,14 +19,20 @@ void Sprite::setSize(const Vector2& size) {
     this->size = size;
 }
 
-void Sprite::setTexture(Texture* texture) {
-    int width, height;
+void Sprite::setTexture(Texture* texture, bool change_size) {
+    
+    if (change_size == false) {
+        this->texture = texture;
+        return;
+    }
     
     // Consigue el tamaño de la textura
+    int width, height;
     SDL_QueryTexture(texture, NULL, NULL, &width, &height);
 
-    this->texture = texture;
+    // Hace que el tamaño del sprite sea igual a la de la textura cargada
     setSize(width, height);
+    this->texture = texture;
 }
 
 void Sprite::draw(const RenderWindow* target) const {

@@ -7,7 +7,7 @@ void sleep(unsigned int ms);
 
 // Devuelve el mayor valor
 template <typename T>
-T max(T a, T b) {
+inline T max(T a, T b) {
     if ( a > b)
         return a;
     else
@@ -16,13 +16,11 @@ T max(T a, T b) {
 
 // Devuelve el menor valor
 template <typename T>
-T min(T a, T b) {
+inline T min(T a, T b) {
     if ( a > b)
         return a;
     else 
         return b;
 }
-
-
 
 #endif //UTIL_H

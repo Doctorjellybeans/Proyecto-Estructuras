@@ -5,7 +5,6 @@
 
 Texture* TextureManager::get(const char* texture_path, int value) {
 
-
     Pair<Texture*, Texture*>* ptr = textureMap.search(texture_path);
     if (ptr == nullptr) {
 
@@ -31,6 +30,7 @@ Texture* TextureManager::get(const char* texture_path, int value) {
     return nullptr; // error
 }
 
+// TODO: Arrglar como idea y concepto
 TextureManager::~TextureManager() {
 
     Pair<Texture*, Texture*>* pair = textureMap.first();
