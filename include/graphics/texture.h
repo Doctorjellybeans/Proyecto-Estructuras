@@ -2,9 +2,6 @@
 #define GRAPHICS_TEXTURE_H
 
 #include <SDL2/SDL.h>
-
-void SDL_DestroyTexture(SDL_Texture * texture);
-
 using Texture = SDL_Texture;
 
 inline void destroyTexture(Texture* texture) {

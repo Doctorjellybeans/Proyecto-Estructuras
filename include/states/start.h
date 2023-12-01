@@ -23,12 +23,14 @@ private:
         Sprite sprite;
         Texture* texure = nullptr;
 
-        bool isClicked(float x, float y) { return sprite.contains(x, y); }
+        bool mouseIsOver(float x, float y) { return sprite.contains(x, y); }
         void setTexture(Texture* texture) { sprite.setTexture(texture); }
         void setPosition(float x, float y) { sprite.setPosition(x, y); }
     };
 
     void draw(Drawable& drawable) { this->window->draw(drawable); }
+
+    Texture* loadTexture(const char* filename) { return window->loadTexture(filename); }
 
     RenderWindow* window;
     Button playButton;
@@ -37,6 +39,9 @@ private:
 
     Sprite background;
     Texture* backgroundTexture;
+
+    Sprite title;
+    Texture* titleTexture;
 };
 
 #endif // STATE_START_H

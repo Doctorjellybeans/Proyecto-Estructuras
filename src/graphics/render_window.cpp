@@ -6,6 +6,7 @@
 #include <stdio.h>
 
 RenderWindow::RenderWindow(const char* title, int width, int height, int posX, int posY) {
+    // Crea la ventana y el renderer
     this->_window = SDL_CreateWindow(title, posX, posY, width, height, SDL_WINDOW_SHOWN);
     this->_renderer = SDL_CreateRenderer(_window, -1, 0);
 
@@ -31,6 +32,9 @@ void RenderWindow::clear() {
     SDL_RenderClear(_renderer);
 }
 
+// En SDL las texturas van por 'renderer' que en este caso
+// seria por ventana, razon que RendererWindow requiera este metodo.}
+// Curiosamente en APIs como OpenGL no es el caso
 Texture* RenderWindow::loadTexture(const char* filename) {
     Texture* texture = IMG_LoadTexture(getRenderer(), filename);
 
@@ -41,6 +45,9 @@ Texture* RenderWindow::loadTexture(const char* filename) {
     return texture;
 }
 
+// Ejecuta el metodo privado draw(). Ya que se necesita saber
+// hacia que ventana se va a dibujar algo, resulta más practico
+// hacer que la ventana sea quien tenga el metodos draw() publico.
 void RenderWindow::draw(const Drawable& drawable) const {
     drawable.draw(this);
 }

@@ -10,8 +10,8 @@
 class Sprite : public Drawable, public Transformable {
 public:
 
-    Sprite() { create(0, 0, NULL); }
-    Sprite(int width, int height) { create(width, height, NULL); }
+    Sprite() { create(0, 0, nullptr); }
+    Sprite(int width, int height) { create(width, height, nullptr); }
     
     virtual ~Sprite() = default;
 
@@ -20,17 +20,20 @@ public:
 
     Vector2 getSize() const { return this->size; }
 
-    void setTexture(Texture* texture);
+    void setTexture(Texture* texture, bool change_size = true);
+    Texture* getTexture() { return texture; }
 
+    /* Revisa si contiene un puntoe en rectangulo que forma
+    su posicion con su tamaño (ingnora la rotación)*/
     bool contains(float x, float y);
-
+    
 private:
 
     void create(int width, int height, Texture* texture);
     virtual void draw(const RenderWindow* target) const;
+    Texture* texture;
 
     Vector2 size;
-    Texture* texture;
     SDL_Rect uv;
 };
 

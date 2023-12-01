@@ -3,6 +3,8 @@
 
 class RenderWindow;
 
+
+// Clase abstracta para objetos dibujables
 class Drawable {
     friend RenderWindow;
 

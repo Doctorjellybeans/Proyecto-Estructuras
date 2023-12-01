@@ -3,6 +3,9 @@
 
 #include <SDL2/SDL.h>
 
+// - Quiero std::print()
+// + Pero si tenemos std::print() en casa
+// std::print() en casa:
 void success(const char* fmt, ...)
 {
     va_list args;
@@ -25,6 +28,10 @@ void error(const char* fmt, ...) {
     printf(" \x1b[0m\x1b[0m\n");
 
     va_end(args);
+}
+
+unsigned int getTime() {
+    return SDL_GetTicks();
 }
 
 void sleep(unsigned int ms) {
