@@ -23,7 +23,7 @@ StartState::StartState(StateQueue* origin) {
     quitButton.setPosition(219, 484);
 
     background.setTexture(loadTexture("assets/images/background1.png"));
-    title.setTexture(loadTexture("assets/images/tdaoh_logo.png"));
+    title.setTexture(loadTexture("assets/images/tdaoh_logo.png"), false);
     title.setSize(513, 306);
     title.setPosition(144, 20);
 }

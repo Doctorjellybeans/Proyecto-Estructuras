@@ -32,8 +32,6 @@ void Application::run() {
         gDeltaTime = (currentTime - lastTime) / 10.0f;
         lastTime = currentTime;
 
-        success("%f", gDeltaTime);
-
         if (!this->states.empty()) {
             currentState()->clear();
         }
