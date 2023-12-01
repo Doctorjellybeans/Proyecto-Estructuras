@@ -18,12 +18,21 @@ Application::~Application() {
 // Bucle principal de la aplicación
 void Application::run() {
 
+    unsigned int currentTime = getTime();
+    unsigned int  lastTime = currentTime;
+
     while (!this->states.empty())
     {
         currentState()->pollEvents();
 
         update();
         render();
+
+        unsigned int currentTime = getTime();
+        gDeltaTime = (currentTime - lastTime) / 10.0f;
+        lastTime = currentTime;
+
+        success("%f", gDeltaTime);
 
         if (!this->states.empty()) {
             currentState()->clear();

@@ -1,9 +1,15 @@
 #ifndef UTIL_H
 #define UTIL_H
 
+// Debug
 void success(const char* fmt, ...);
 void error(const char* fmt, ...);
+
+// Pausa la applicación N milisegundos
 void sleep(unsigned int ms);
+
+// Consigue el tiempo actual
+unsigned int getTime();
 
 // Devuelve el mayor valor
 template <typename T>

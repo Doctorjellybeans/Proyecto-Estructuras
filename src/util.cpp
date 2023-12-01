@@ -30,6 +30,10 @@ void error(const char* fmt, ...) {
     va_end(args);
 }
 
+unsigned int getTime() {
+    return SDL_GetTicks();
+}
+
 void sleep(unsigned int ms) {
     SDL_Delay(ms);
 }

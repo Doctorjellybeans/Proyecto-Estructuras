@@ -61,7 +61,8 @@ void StartState::update() {
         }
     }
 
-    background.move(-1, -1);
+    background.move(-0.8 * gDeltaTime, -0.8 * gDeltaTime);
+
     if ( background.getPosition().x <= -80.0f) {
         background.setPosition(0, background.getPosition().y);
     }
