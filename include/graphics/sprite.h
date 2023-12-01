@@ -21,18 +21,19 @@ public:
     Vector2 getSize() const { return this->size; }
 
     void setTexture(Texture* texture, bool change_size = true);
+    Texture* getTexture() { return texture; }
 
     /* Revisa si contiene un puntoe en rectangulo que forma
     su posicion con su tamaño (ingnora la rotación)*/
     bool contains(float x, float y);
-
+    
 private:
 
     void create(int width, int height, Texture* texture);
     virtual void draw(const RenderWindow* target) const;
+    Texture* texture;
 
     Vector2 size;
-    Texture* texture;
     SDL_Rect uv;
 };
 

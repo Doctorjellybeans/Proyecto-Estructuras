@@ -10,21 +10,22 @@ StartState::StartState(StateQueue* origin) {
     this->window = new RenderWindow("TDA-OH!", 800, 600);
 
     // Carga las texturas de los botones
-    Texture* texure = window->loadTexture("assets/images/play_button.png");
+    Texture* texure = loadTexture("assets/images/play_button.png");
     playButton.setTexture(texure);
     playButton.setPosition(219, 308);
 
-    texure = window->loadTexture("assets/images/rules_button.png");
+    texure = loadTexture("assets/images/rules_button.png");
     rulesButton.setTexture(texure);
     rulesButton.setPosition(219, 396);
 
-    texure = window->loadTexture("assets/images/quit_button.png");
+    texure = loadTexture("assets/images/quit_button.png");
     quitButton.setTexture(texure);
     quitButton.setPosition(219, 484);
 
-    // Fondo
-    backgroundTexture = window->loadTexture("assets/images/background1.png");
-    background.setTexture(backgroundTexture);
+    background.setTexture(loadTexture("assets/images/background1.png"));
+    title.setTexture(loadTexture("assets/images/tdaoh_logo.png"));
+    title.setSize(513, 306);
+    title.setPosition(144, 20);
 }
 
 StartState::~StartState() {
@@ -34,7 +35,8 @@ StartState::~StartState() {
     destroyTexture(rulesButton.texure);
     destroyTexture(quitButton.texure);
 
-    destroyTexture(backgroundTexture);
+    destroyTexture(background.getTexture());
+    destroyTexture(title.getTexture());
 }
 
 void StartState::update() {
@@ -44,17 +46,17 @@ void StartState::update() {
 
     if (mouseState & SDL_BUTTON(SDL_BUTTON_LEFT)) {
         
-        if (playButton.isClicked(x, y)) {
+        if (playButton.mouseIsOver(x, y)) {
             State* s = new DuelState(origin);
             pushState(s);
             end();
         }
 
-        if (rulesButton.isClicked(x, y)) {
+        if (rulesButton.mouseIsOver(x, y)) {
             printf("reglas\n");
         }
 
-        if (quitButton.isClicked(x, y)) {
+        if (quitButton.mouseIsOver(x, y)) {
             end();
         }
     }
@@ -85,6 +87,8 @@ void StartState::pollEvents() {
 
 void StartState::render() {
     draw(background);
+
+    draw(title);
 
     draw(playButton.sprite);
     draw(rulesButton.sprite);
