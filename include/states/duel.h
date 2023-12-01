@@ -5,6 +5,7 @@
 #include "graphics.h"
 #include "texture_manager.h"
 
+#include "TDA-Oh/player.h"
 
 class DuelState : public State {
 
@@ -18,6 +19,9 @@ public:
     void clear();
 
     void pollEvents();
+
+    Player* p1;
+    Player* p2;
 
 private:
 

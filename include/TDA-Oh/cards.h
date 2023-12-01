@@ -5,6 +5,8 @@
 #include "TDA-Oh/player.h"
 #include "TDA-Oh/enum.h"
 
+class Player;
+
 class Card {
     private:
         TDACardOperation operation;

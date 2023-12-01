@@ -70,6 +70,7 @@ class Deck {
                 return card;
             } else {
                 fillDeck();
+                return nullptr;
             }
         }
 
