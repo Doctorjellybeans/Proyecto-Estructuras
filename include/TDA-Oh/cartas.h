@@ -2,45 +2,55 @@
 #define CARTAS_H
 
 #include <iostream>
-#include <string>
-
-enum class TipoOperacion {
-    Apilar,
-    InsertarActual,
-    Encolar,
-    Desapilar,
-    Desencolar,
-    EliminarActual,
-    CambiarTda
-};
-
-enum class TipoCarta {
-    DANIO,
-    VIDA,
-    EFECTO
-};
+#include "TDA-Oh/jugador.h"
+#include "TDA-Oh/enum.h"
 
 class Carta {
     private:
-        TipoOperacion operacion;
-        TipoCarta tipo;
-        int puntaje;
-
+        OperacionTDA operacion;
+    
     public:
-        // Constructor
-        Carta(TipoCarta tipo, TipoOperacion op, int pts) : tipo(tipo), operacion(op), puntaje(pts) {}
+        Carta(OperacionTDA operacionCarta) : operacion(operacionCarta) {}
 
-        // Métodos de acceso
-        TipoOperacion obtenerOperacion() const {
+        virtual void aplicarEfecto(Jugador& objetivo) const = 0;
+        
+        OperacionTDA obtenerOperacionTDA() const {
             return operacion;
         }
 
-        TipoCarta obtenerTipo() const {
-            return tipo;
-        }
+        virtual ~Carta() {}
+};
 
-        int obtenerPuntaje() const {
-            return puntaje;
+class CartaDanio : public Carta {
+    private:
+        int cantidadDanio;
+        
+    public:
+        CartaDanio(OperacionTDA operacionCarta, int danio) : Carta(operacionCarta), cantidadDanio(danio) {}
+
+        void aplicarEfecto(Jugador& objetivo) const override {
+            objetivo.recibirDanio(cantidadDanio, obtenerOperacionTDA());
+        }
+};
+
+class CartaVida : public Carta {
+    private:
+        int cantidadCura;
+    
+    public:
+        CartaVida(OperacionTDA operacionCarta, int cura) : Carta(operacionCarta), cantidadCura(cura) {}
+
+        void aplicarEfecto(Jugador& objetivo) const override {
+            objetivo.curar(cantidadCura, obtenerOperacionTDA());
+        } 
+};
+
+class CartaEfecto : public Carta {
+    public:
+        CartaEfecto(OperacionTDA operacionCarta) : Carta(operacionCarta) {}
+
+        void aplicarEfecto(Jugador& objetivo) const override {
+            objetivo.cambiarTDA();
         }
 };
 
