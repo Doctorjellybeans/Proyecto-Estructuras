@@ -73,6 +73,7 @@ void StartState::update() {
     }
 }
 
+// Eventos de SDL
 void StartState::pollEvents() {
     
     SDL_Event event;
