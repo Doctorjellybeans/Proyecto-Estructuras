@@ -296,7 +296,7 @@ T* List<T>::search(T data)
 template<typename T>
 T* List<T>::at(int pos)
 {
-    if (pos < 0 || static_cast<int>(this->_size))
+    if (pos < 0 || pos >= static_cast<int>(this->_size))
     {
         return nullptr;
     }
