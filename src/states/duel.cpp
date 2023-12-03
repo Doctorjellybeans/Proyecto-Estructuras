@@ -10,18 +10,42 @@ DuelState::DuelState(StateQueue* origin) {
 
     this->textures = new TextureManager(window1, window2);
 
-    // Inicializa Juegadores
+    // Inicializa Jugadores
     player1 = new Player(100, TDAType::STACK);
     player2 = new Player(100, TDAType::STACK);
 
+    deck.fillDeck();
+    for (int i = 0; i < 7 ; i++){
+        player1->addCardToHand(deck);
+        player2->addCardToHand(deck);
+    }
 
+    Texture* texture = getTexture("assets/images/card.png", 1);
+    Card* temp = player1->hand.first();
+    while (temp != nullptr)
+    {
+        temp->sprite.setTexture(texture);
+        temp->sprite.setPosition(0, 281);
+        temp = player1->hand.next();
+    }
 
+    texture = getTexture("assets/images/card.png", 2);
+    temp = player2->hand.first();
+    while (temp != nullptr)
+    {
+        temp->sprite.setTexture(texture);
+        temp->sprite.setPosition(0, 281);
+        temp = player2->hand.next();
+    }
+    
     // Fondos
-    Texture* texture = getTexture("assets/images/player1_background.png", 1);
+    texture = getTexture("assets/images/player1_background.png", 1);
     background1.setTexture(texture);
 
     texture = getTexture("assets/images/player2_background.png", 2);
     background2.setTexture(texture);
+
+    
 }
 
 DuelState::~DuelState() {
@@ -51,6 +75,9 @@ void DuelState::update() {
 void DuelState::render() {
     draw(background1, 1);
     draw(background2, 2);
+
+    drawCards(1);
+    drawCards(2);
 }
 
 void DuelState::clear() {
@@ -89,5 +116,30 @@ void DuelState::draw(const Drawable& drawable, int value) const {
     }
     else {
         this->window2->draw(drawable);
+    }
+}
+
+void DuelState::drawCards(int value) {
+
+    Player* player;
+    if (value == 1) {
+        player = player1;
+    }
+    else {
+        player = player2;
+    }
+
+    float offset = 320 / (player->hand.size() + 1);
+    float posX = 0;
+
+    Card* temp = player->hand.first();
+    while (temp != nullptr)
+    {
+        
+        temp->sprite.setPosition(posX, 281);
+        draw(temp->sprite, value);
+        posX += offset;
+
+        temp = player->hand.next();
     }
 }

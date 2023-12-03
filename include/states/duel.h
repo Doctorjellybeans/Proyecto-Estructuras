@@ -29,7 +29,9 @@ public:
 private:
 
     Texture* getTexture(const char* texture_path, int value) { return textures->get(texture_path, value); }
+
     void draw(const Drawable& drawable, int value) const;
+    void drawCards(int value);
 
     TextureManager* textures;
 

@@ -4,6 +4,7 @@
 #include <iostream>
 #include "TDA-Oh/player.h"
 #include "TDA-Oh/enum.h"
+#include "graphics.h"
 
 class Player;
 
@@ -21,6 +22,7 @@ class Card {
         }
 
         virtual ~Card() {}
+        Sprite sprite;
 };
 
 class DamageCard : public Card {

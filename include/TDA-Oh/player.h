@@ -21,10 +21,10 @@ public:
     void playCard();
     int getHealth() const;
     TDAType getTDAType();
+    List<Card> hand;
 
 private:
     HealthBar* healthBar;
-    List<Card*> hand;
 };
 
 #endif // PLAYER_H

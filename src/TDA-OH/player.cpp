@@ -25,7 +25,7 @@ void Player::changeTDA() {
 
 void Player::addCardToHand(Deck& deck) {
     Card* topCard = deck.drawCard();
-    hand.pushFront(&topCard);
+    hand.pushFront(topCard);
 }
 
 void Player::playCard() {}
