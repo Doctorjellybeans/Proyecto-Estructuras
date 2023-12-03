@@ -39,6 +39,7 @@ public:
     T2* search(T1 key);
     T2* first();
     T2* next();
+    size_t currentSize();
 
 private:
 
@@ -188,6 +189,11 @@ T2* Map<T1, T2>::next()
         return buckets[current].first()->value;
 
     return nullptr;
+}
+
+template<typename T1, typename T2>
+size_t Map<T1,T2>::currentSize() {
+    return size;
 }
 
 template <typename T1, typename T2>
