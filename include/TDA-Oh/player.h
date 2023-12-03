@@ -18,7 +18,7 @@ public:
     void changeTDA();
 
     void addCardToHand(Deck& deck);
-    void playCard();
+    void playCard(Player& target);
     int getHealth() const;
     TDAType getTDAType();
     List<Card> hand;

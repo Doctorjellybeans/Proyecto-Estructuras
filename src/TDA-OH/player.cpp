@@ -28,7 +28,18 @@ void Player::addCardToHand(Deck& deck) {
     hand.pushFront(topCard);
 }
 
-void Player::playCard() {}
+void Player::playCard(Player& target) {
+
+    TDAType targetHPTDA = target.getTDAType(); 
+
+    Card* card = hand.current();
+    TDACardOperation operation = card->getCardOperation();
+
+    if (target.healthBar->isMoveValid(targetHPTDA, operation)) {
+        card->applyEffect(target);
+    }
+
+}
 
 int Player::getHealth() const {
     return 0;
