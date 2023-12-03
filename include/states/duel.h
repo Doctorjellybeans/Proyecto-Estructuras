@@ -6,10 +6,10 @@
 #include "texture_manager.h"
 
 #include "TDA-Oh/player.h"
+#include "TDA-Oh/deck.h"
 
 // Estado de duelo, aqui ocurre el juego en si
 class DuelState : public State {
-
 public:
 
     DuelState(StateQueue* origin);
@@ -21,8 +21,10 @@ public:
     void clear();
     void pollEvents();
 
-    Player* p1;
-    Player* p2;
+    Player* player1;
+    Player* player2;
+
+    Deck deck;
 
 private:
 
@@ -34,9 +36,8 @@ private:
     RenderWindow* window1;
     RenderWindow* window2;
 
-    Text text1;
-    Text text2;
-
+    Sprite background1;
+    Sprite background2;
 };
 
 
