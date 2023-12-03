@@ -8,28 +8,37 @@ class List
 {
 public:
 
+    // Constructor - Destructor
     List();
     ~List();
 
+    // Operaciones de busqueda lineal
     T* first();
     T* last();
 
+    // Operaciones de transporte
     T* next();
     T* prev(); 
     T* current();
 
+    // Operaciones de busqueda
     T* search(T data);
+    T* at(int pos);
 
+    // Operaciones de insercion
     void pushFront(T* data);
     void pushBack(T* data);
     void pushCurrent(T* data);
 
+    // Operaciones de eliminacion
     T* popFront();
     T* popBack();
     T* popCurrent();
 
+    // Verificar si lista esta vacia
     bool empty() { return this->_head == nullptr; }
 
+    // Liberar lista
     void clean();
     size_t size() { return this->_size; }
 
@@ -51,6 +60,8 @@ private:
 
     size_t _size = 0;
 };
+
+// IMPLEMENTACIONES
 
 template <typename T>
 List<T>::List()
@@ -280,6 +291,23 @@ T* List<T>::search(T data)
     }
     
     return nullptr;
+}
+
+template<typename T>
+T* List<T>::at(int pos)
+{
+    if (pos < 0 || static_cast<int>(this->_size))
+    {
+        return nullptr;
+    }
+
+    T* current = first();
+
+    for (int i = 0; i < pos; i++) {
+        current = next();
+    }
+
+    return current;
 }
 
 template <typename T>
