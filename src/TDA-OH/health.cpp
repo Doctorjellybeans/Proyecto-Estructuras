@@ -12,27 +12,25 @@ HealthBar::HealthBar(int initialPoints, TDAType initialTDA)
 }
 
 TDAType HealthBar::findInverseType( TDACardOperation operation) {
-    std::unordered_map<TDACardOperation, TDAType> operationTypeMap = {
-        {TDACardOperation::PUSH, TDAType::STACK},
-        {TDACardOperation::POP, TDAType::STACK},
-        {TDACardOperation::ENQUEUE, TDAType::QUEUE},
-        {TDACardOperation::DEQUEUE, TDAType::QUEUE},
-        {TDACardOperation::INSERT, TDAType::LIST},
-        {TDACardOperation::DELETE, TDAType::LIST},
-        {TDACardOperation::CHANGETDA, TDAType::SPECIAL}
-    };
+    static Map<TDACardOperation, TDAType> operationTypeMap;
 
-            
-    // Search for the inverse operation in the map
-    auto iterator = operationTypeMap.find(operation);
-
-    // If found, return the associated type; otherwise, return a default value
-    if (iterator != operationTypeMap.end()) {
-        return iterator->second;
-    } else {
-        return TDAType::SPECIAL; 
+    if (operationTypeMap.currentSize() == 0) {
+        operationTypeMap.insert(TDACardOperation::INSERT,TDAType::LIST);
+        operationTypeMap.insert(TDACardOperation::DELETE,TDAType::LIST);
+        operationTypeMap.insert(TDACardOperation::PUSH,TDAType::STACK);
+        operationTypeMap.insert(TDACardOperation::POP,TDAType::STACK);
+        operationTypeMap.insert(TDACardOperation::ENQUEUE,TDAType::QUEUE);
+        operationTypeMap.insert(TDACardOperation::DEQUEUE,TDAType::QUEUE);
+        operationTypeMap.insert(TDACardOperation::CHANGETDA,TDAType::SPECIAL);
     }
-}
+
+    TDAType* result = operationTypeMap.search(operation);
+
+    if (result != nullptr) {
+        return *result;
+    }
+    return TDAType::SPECIAL;
+}   
 
 bool HealthBar::isMoveValid( TDAType tdaHP, TDACardOperation cardOperation) {
     TDAType comparison = findInverseType(cardOperation);

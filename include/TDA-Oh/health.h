@@ -2,7 +2,7 @@
 #define HEALTH_H
 
 #include <algorithm>
-#include <unordered_map>
+#include "TDAs/map.h"
 #include "TDAs/stack.h"
 #include "TDA-Oh/enum.h"
 
@@ -14,14 +14,17 @@ public:
     HealthBar(int initialPoints, TDAType initialTDA);
 
     TDAType findInverseType( TDACardOperation operation);
+    
     bool isMoveValid( TDAType tdaHP, TDACardOperation cardOperation);
 
     void changeNext();
+
     void receiveDamage(int damageAmount, TDACardOperation cardOperation);
 
     void heal(int healingAmount, TDACardOperation cardOperation);
 
     int getPoints();
+
     TDAType getTDA();
 
 private:
