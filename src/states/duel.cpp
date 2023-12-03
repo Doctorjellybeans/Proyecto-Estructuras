@@ -43,7 +43,7 @@ DuelState::DuelState(StateQueue* origin) {
         temp = player2->hand.next();
     }
     player2->hand.first();
-    player2->hand.current()->sprite.setPosition(0, 201);
+    player2->hand.current()->sprite.setPosition(0, 211);
     
     // Fondos
     texture = getTexture("assets/images/player1_background.png", 1);
@@ -66,26 +66,65 @@ void DuelState::update() {
     // Consigue el input
     const Uint8* keyStates = SDL_GetKeyboardState(NULL);
 
+    List<Card>& hand1 = player1->hand;
+    List<Card>& hand2 = player2->hand;
+
     // Input Jugador 1
     if(keyStates[SDL_SCANCODE_W])
     {
+        Sprite& sprite = hand1.current()->sprite;
+        sprite.setPosition(sprite.getPosition().x, 271);
+
+        hand1.next();
+        if(hand1.current() == nullptr) {
+            hand1.last();
+        }
+
+        Sprite& sprite2 = hand1.current()->sprite;
+        sprite2.setPosition(sprite.getPosition().x, 211);
 
     }
     else if (keyStates[SDL_SCANCODE_Q])
     {
+        Sprite& sprite = hand1.current()->sprite;
+        sprite.setPosition(sprite.getPosition().x, 271);
 
+        hand1.prev();
+        if(hand1.current() == nullptr) {
+            hand1.first();
+        }
+
+        Sprite& sprite2 = hand1.current()->sprite;
+        sprite2.setPosition(sprite.getPosition().x, 211);
     }
 
     // Input Jugador 2
     if(keyStates[SDL_SCANCODE_P])
     {
+        Sprite& sprite = hand2.current()->sprite;
+        sprite.setPosition(sprite.getPosition().x, 271);
 
+        hand2.next();
+        if(hand2.current() == nullptr) {
+            hand2.last();
+        }
+
+        Sprite& sprite2 = hand2.current()->sprite;
+        sprite2.setPosition(sprite.getPosition().x, 211);
     }
     else if (keyStates[SDL_SCANCODE_O])
     {
+        Sprite& sprite = hand2.current()->sprite;
+        sprite.setPosition(sprite.getPosition().x, 271);
 
+        hand2.prev();
+        if(hand2.current() == nullptr) {
+            hand2.first();
+        }
+
+        Sprite& sprite2 = hand2.current()->sprite;
+        sprite2.setPosition(sprite.getPosition().x, 211);
     }
-
 
     // Fondo 1
     background1.move(-0.35 * gDeltaTime, -0.35 * gDeltaTime);
@@ -159,10 +198,13 @@ void DuelState::drawCards(int value) {
         player = player2;
     }
 
-    float offset = 320 / (player->hand.size());
+    List<Card>& hand = player->hand;
+    Card* ptr = hand.current();
+
+    float offset = 320 / (hand.size());
     float posX = 0;
 
-    Card* temp = player->hand.first();
+    Card* temp = hand.first();
     while (temp != nullptr)
     {
         
@@ -170,6 +212,13 @@ void DuelState::drawCards(int value) {
         draw(temp->sprite, value);
         posX += offset;
 
-        temp = player->hand.next();
+        temp = hand.next();
     }
+
+    temp = hand.first();
+    while (ptr != temp)
+    {
+        temp = hand.next();
+    }
+    
 }
