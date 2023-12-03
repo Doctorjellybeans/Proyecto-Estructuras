@@ -43,6 +43,30 @@ class Deck {
         }
 
     public:
+
+        // Faltan el resto de TDAs
+        Deck() {
+            for (int i = 0; i < 56; i++) {
+                int option = randomNumer(3);
+
+                if (option == 1) {
+                    deck.push(i,new DamageCard(randomOperation(TDAType::STACK),randomNumer(2)));
+                } else if (option == 2) {
+                    deck.push(i,new HealCard(randomOperation(TDAType::STACK),randomNumer(2)));
+                } else if (option == 3) {
+                    deck.push(i,new EffectCard(TDACardOperation::CHANGETDA));
+                }
+                
+            }
+        }
+
+        ~Deck() {
+            while (!deck.isEmpty()) {
+                Card* card = deck.pop();
+                delete card;
+            }
+        }
+        
         void fillDeck() {
             for (int i = 0; i < 56; i++) {
                 int option = randomNumer(3);
