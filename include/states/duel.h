@@ -33,6 +33,8 @@ private:
     void draw(const Drawable& drawable, int value) const;
     void drawCards(int value);
 
+    void Input(int value);
+
     TextureManager* textures;
 
     RenderWindow* window1;
@@ -40,6 +42,9 @@ private:
 
     Sprite background1;
     Sprite background2;
+
+    float inputDelay1 = 0;
+    float inputDelay2 = 0;
 };
 
 

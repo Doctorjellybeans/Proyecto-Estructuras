@@ -1,6 +1,5 @@
 #include "states/duel.h"
 
-
 DuelState::DuelState(StateQueue* origin) {
     this->origin = origin;
 
@@ -64,66 +63,17 @@ DuelState::~DuelState() {
 void DuelState::update() {
 
     // Consigue el input
-    const Uint8* keyStates = SDL_GetKeyboardState(NULL);
 
-    List<Card>& hand1 = player1->hand;
-    List<Card>& hand2 = player2->hand;
-
-    // Input Jugador 1
-    if(keyStates[SDL_SCANCODE_W])
-    {
-        Sprite& sprite = hand1.current()->sprite;
-        sprite.setPosition(sprite.getPosition().x, 271);
-
-        hand1.next();
-        if(hand1.current() == nullptr) {
-            hand1.last();
-        }
-
-        Sprite& sprite2 = hand1.current()->sprite;
-        sprite2.setPosition(sprite.getPosition().x, 211);
-
-    }
-    else if (keyStates[SDL_SCANCODE_Q])
-    {
-        Sprite& sprite = hand1.current()->sprite;
-        sprite.setPosition(sprite.getPosition().x, 271);
-
-        hand1.prev();
-        if(hand1.current() == nullptr) {
-            hand1.first();
-        }
-
-        Sprite& sprite2 = hand1.current()->sprite;
-        sprite2.setPosition(sprite.getPosition().x, 211);
+    if (inputDelay1 <= 0) {
+        Input(1);
+    } else {
+        inputDelay1 -= gDeltaTime;
     }
 
-    // Input Jugador 2
-    if(keyStates[SDL_SCANCODE_P])
-    {
-        Sprite& sprite = hand2.current()->sprite;
-        sprite.setPosition(sprite.getPosition().x, 271);
-
-        hand2.next();
-        if(hand2.current() == nullptr) {
-            hand2.last();
-        }
-
-        Sprite& sprite2 = hand2.current()->sprite;
-        sprite2.setPosition(sprite.getPosition().x, 211);
-    }
-    else if (keyStates[SDL_SCANCODE_O])
-    {
-        Sprite& sprite = hand2.current()->sprite;
-        sprite.setPosition(sprite.getPosition().x, 271);
-
-        hand2.prev();
-        if(hand2.current() == nullptr) {
-            hand2.first();
-        }
-
-        Sprite& sprite2 = hand2.current()->sprite;
-        sprite2.setPosition(sprite.getPosition().x, 211);
+    if (inputDelay2 <= 0) {
+        Input(2);
+    } else {
+        inputDelay2 -= gDeltaTime;
     }
 
     // Fondo 1
@@ -139,7 +89,61 @@ void DuelState::update() {
         background2.setPosition(0, background2.getPosition().y);
         background2.setPosition(background2.getPosition().x, 0);
     }
+    
 }
+
+// Input Jugador 1
+void DuelState::Input(int value) {
+    const Uint8* keyStates = SDL_GetKeyboardState(NULL);
+
+    unsigned int rigth = 0;
+    unsigned int left = 0;
+
+    Player* player;
+    if (value == 1) {
+        player = player1;
+        rigth = SDL_SCANCODE_W;
+        left = SDL_SCANCODE_Q;
+
+        inputDelay1 = 4;
+    }
+    else {
+        player = player2;
+        rigth = SDL_SCANCODE_P;
+        left = SDL_SCANCODE_O;
+
+        inputDelay2 = 4;
+    }
+
+    List<Card>& hand = player->hand;
+
+    if(keyStates[rigth]) {
+        Sprite& sprite = hand.current()->sprite;
+        sprite.setPosition(sprite.getPosition().x, 271);
+
+        hand.next();
+        if(hand.current() == nullptr) {
+            hand.last();
+        }
+
+        Sprite& sprite2 = hand.current()->sprite;
+        sprite2.setPosition(sprite.getPosition().x, 211);
+
+    }
+    else if (keyStates[left]) {
+        Sprite& sprite = hand.current()->sprite;
+        sprite.setPosition(sprite.getPosition().x, 271);
+
+        hand.prev();
+        if(hand.current() == nullptr) {
+            hand.first();
+        }
+
+        Sprite& sprite2 = hand.current()->sprite;
+        sprite2.setPosition(sprite.getPosition().x, 211);
+    }
+}
+
 
 void DuelState::render() {
     draw(background1, 1);
