@@ -20,23 +20,30 @@ DuelState::DuelState(StateQueue* origin) {
         player2->addCardToHand(deck);
     }
 
+
+    // Cartas Jugador 1
     Texture* texture = getTexture("assets/images/card.png", 1);
     Card* temp = player1->hand.first();
     while (temp != nullptr)
     {
         temp->sprite.setTexture(texture);
-        temp->sprite.setPosition(0, 281);
+        temp->sprite.setPosition(0, 271);
         temp = player1->hand.next();
     }
+    player1->hand.first();
+    player1->hand.current()->sprite.setPosition(0, 211);
 
+    // Cartas Jugador 2
     texture = getTexture("assets/images/card.png", 2);
     temp = player2->hand.first();
     while (temp != nullptr)
     {
         temp->sprite.setTexture(texture);
-        temp->sprite.setPosition(0, 281);
+        temp->sprite.setPosition(0, 271);
         temp = player2->hand.next();
     }
+    player2->hand.first();
+    player2->hand.current()->sprite.setPosition(0, 201);
     
     // Fondos
     texture = getTexture("assets/images/player1_background.png", 1);
@@ -45,7 +52,6 @@ DuelState::DuelState(StateQueue* origin) {
     texture = getTexture("assets/images/player2_background.png", 2);
     background2.setTexture(texture);
 
-    
 }
 
 DuelState::~DuelState() {
@@ -56,6 +62,30 @@ DuelState::~DuelState() {
 }
 
 void DuelState::update() {
+
+    // Consigue el input
+    const Uint8* keyStates = SDL_GetKeyboardState(NULL);
+
+    // Input Jugador 1
+    if(keyStates[SDL_SCANCODE_W])
+    {
+
+    }
+    else if (keyStates[SDL_SCANCODE_Q])
+    {
+
+    }
+
+    // Input Jugador 2
+    if(keyStates[SDL_SCANCODE_P])
+    {
+
+    }
+    else if (keyStates[SDL_SCANCODE_O])
+    {
+
+    }
+
 
     // Fondo 1
     background1.move(-0.35 * gDeltaTime, -0.35 * gDeltaTime);
@@ -129,14 +159,14 @@ void DuelState::drawCards(int value) {
         player = player2;
     }
 
-    float offset = 320 / (player->hand.size() + 1);
+    float offset = 320 / (player->hand.size());
     float posX = 0;
 
     Card* temp = player->hand.first();
     while (temp != nullptr)
     {
         
-        temp->sprite.setPosition(posX, 281);
+        temp->sprite.setPosition(posX, temp->sprite.getPosition().y);
         draw(temp->sprite, value);
         posX += offset;
 
