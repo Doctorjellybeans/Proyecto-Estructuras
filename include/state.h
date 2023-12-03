@@ -11,7 +11,7 @@ class State {
 
 public:
 
-    State(): quited(false)  {}
+    State() = default;
     virtual ~State() {};
 
     // Metodos abtractos
@@ -39,7 +39,7 @@ protected:
 
 private:
 
-    bool quited;
+    bool quited = false;
 };
 
 #endif //STATE_H

@@ -10,6 +10,8 @@ public:
 
     Application();
     ~Application();
+    
+    // Bucle principal de la aplicación
     void run();
 
 private:
@@ -19,8 +21,8 @@ private:
 
     State* currentState() { return this->states.top(); }
 
+    // Cola de estados
     StateQueue states;
-    SDL_Event event;
 };
 
 #endif // APPLIACATION_H

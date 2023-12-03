@@ -4,6 +4,8 @@
 #include "state.h"
 #include "graphics.h"
 
+// Estado de la pantalla de titulo
+
 class StartState : public State {
 
 public:
@@ -11,14 +13,15 @@ public:
     StartState(StateQueue* origin);
     ~StartState();
 
+    // Metodos de State
     void update();
     void render();
     void clear();
-    
     void pollEvents();
 
 private:
 
+    // structa botton para simplificar codigo
     struct Button {
         Sprite sprite;
         Texture* texure = nullptr;
@@ -33,15 +36,16 @@ private:
     Texture* loadTexture(const char* filename) { return window->loadTexture(filename); }
 
     RenderWindow* window;
-    Button playButton;
-    Button rulesButton;
-    Button quitButton;
 
     Sprite background;
     Texture* backgroundTexture;
 
     Sprite title;
     Texture* titleTexture;
+
+    Button playButton;
+    Button rulesButton;
+    Button quitButton;
 };
 
 #endif // STATE_START_H

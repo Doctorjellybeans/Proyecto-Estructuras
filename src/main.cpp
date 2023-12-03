@@ -9,7 +9,7 @@
 
 int main(int argc, char* args[]) {
     
-    // Inicializa SDL
+    // Inicializa SDL y sus modulos
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
         error("SDL2 no se pudo inicializar. %s\n", SDL_GetError());
     }
@@ -22,6 +22,7 @@ int main(int argc, char* args[]) {
         error("SDL_ttf no se pudo inicializar. %s\n", TTF_GetError());
     }
 
+    // Ejecuta la Aplicación
     Application tdaoh;
     tdaoh.run();
     

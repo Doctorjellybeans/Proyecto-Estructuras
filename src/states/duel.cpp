@@ -8,13 +8,11 @@ DuelState::DuelState(StateQueue* origin) {
     this->window1 = new RenderWindow("TDA-OH! - Jugador1", 400, 400, 300);
     this->window2 = new RenderWindow("TDA-OH! - Jugador2", 400, 400, 800);
 
-    this->textures = new TextureManager(this->window1, this->window2); // TODO: Falta limpiar esta cosa
-    
-    tex1 =  getTexture("assets/ihavet.png", 1);
-    sprite1.setTexture(tex1);
+    text1.setText("Jugador 1");
+    text1.setSize(14);
 
-    tex2 = getTexture("assets/wosides.png", 2);
-    sprite2.setTexture(tex2);
+    text2.setText("Jugador 2");
+    text2.setSize(14);
 }
 
 DuelState::~DuelState() {
@@ -27,8 +25,8 @@ void DuelState::update() {
 }
 
 void DuelState::render() {
-    draw(sprite1, 1);
-    draw(sprite2, 2);
+    draw(text1, 1);
+    draw(text1, 2);
 }
 
 void DuelState::clear() {

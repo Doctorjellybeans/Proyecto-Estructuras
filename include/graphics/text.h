@@ -43,7 +43,7 @@ private:
     int fontSize = 12;
     Color color;
 
-    // Ninguno ha de tener getters
+    // Ninguno ha de tener 'getters'
     mutable Vector2i size;
     mutable Texture* texture = nullptr;
     mutable bool needUpdate = true;

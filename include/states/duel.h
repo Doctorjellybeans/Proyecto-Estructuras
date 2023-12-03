@@ -7,6 +7,7 @@
 
 #include "TDA-Oh/player.h"
 
+// Estado de duelo, aqui ocurre el juego en si
 class DuelState : public State {
 
 public:
@@ -14,10 +15,10 @@ public:
     DuelState(StateQueue* origin);
     ~DuelState();
 
+    // Metodos de State
     void update();
     void render();
     void clear();
-
     void pollEvents();
 
     Player* p1;
@@ -33,11 +34,8 @@ private:
     RenderWindow* window1;
     RenderWindow* window2;
 
-    Sprite sprite1;
-    Sprite sprite2;
-
-    Texture* tex1;
-    Texture* tex2;
+    Text text1;
+    Text text2;
 
 };
 

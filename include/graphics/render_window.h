@@ -6,6 +6,9 @@
 
 #include <SDL2/SDL.h>
 
+// Clase Ventana, es esencialmente
+// un wrapper de la ventanas de SDL
+
 class RenderWindow {
     friend Drawable;
 

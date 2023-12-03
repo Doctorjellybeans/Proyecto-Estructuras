@@ -11,6 +11,9 @@ struct Vector2 {
     float y;
 };
 
+// Clase para objetos movibles
+// vale decir que tienen posición
+// se pueden escalar y rotar
 class Transformable {
 public:
 

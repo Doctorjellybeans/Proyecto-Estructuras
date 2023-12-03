@@ -30,6 +30,13 @@ void Text::setText(const char* string) {
     this->text = string;
 }
 
+// Esta función es bastante ineficiente, ya que se llamara, si
+// se hizo algún cambio a objeto, antes de dibujarlo.
+// Primero carga la fuente que y después renderiza el texto
+// y una letra de una fuente se define por N vectores
+// así que ya que hay que dibujar M letras meramente renderizar
+// el texto es O(M*N), así que idealmente hay que reducir las llamadas a esta,
+// aunque se hizo así en pos de un front-end más simple.
 void Text::updateTexture(const RenderWindow* target) const {
     if (this->text == NULL) {
         return;
@@ -66,7 +73,7 @@ void Text::draw(const RenderWindow* target) const {
     rect.w = size.x * getScale().x;
     rect.h = size.y * getScale().y;
 
-    // Calcular la posición centrada
+    // Calcula la posición centrada
     rect.x = getPosition().x - (rect.w - size.x) / 2.0f;
     rect.y = getPosition().y - (rect.h - size.y) / 2.0f;
     

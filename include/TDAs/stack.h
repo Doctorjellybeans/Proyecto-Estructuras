@@ -4,9 +4,8 @@
 #include <iostream>
 #include <stdexcept> 
 
-/* To implement the stack, we will use simple linked lists */
 
-// Node class for a stack
+// Estructura Nodo para la Pila
 template <typename T>
 class StackNode {
 public:

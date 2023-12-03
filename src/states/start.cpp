@@ -63,6 +63,7 @@ void StartState::update() {
 
     background.move(-0.8 * gDeltaTime, -0.8 * gDeltaTime);
 
+    // Fondo movible
     if ( background.getPosition().x <= -80.0f) {
         background.setPosition(0, background.getPosition().y);
     }

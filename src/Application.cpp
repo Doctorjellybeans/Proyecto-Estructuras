@@ -18,6 +18,7 @@ Application::~Application() {
 // Bucle principal de la aplicación
 void Application::run() {
 
+    // Consigue DeltaTime
     unsigned int currentTime = getTime();
     unsigned int  lastTime = currentTime;
 
@@ -27,8 +28,9 @@ void Application::run() {
 
         update();
         render();
-
-        unsigned int currentTime = getTime();
+        
+        // Consigue DeltaTime
+        currentTime = getTime();
         gDeltaTime = (currentTime - lastTime) / 10.0f;
         lastTime = currentTime;
 
