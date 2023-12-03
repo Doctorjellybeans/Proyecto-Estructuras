@@ -192,7 +192,8 @@ T2* Map<T1, T2>::next()
 }
 
 template<typename T1, typename T2>
-size_t Map<T1,T2>::currentSize() {
+size_t Map<T1,T2>::currentSize() 
+{
     return size;
 }
 
