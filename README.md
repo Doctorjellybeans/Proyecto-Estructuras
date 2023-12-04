@@ -40,16 +40,20 @@ A pesar de que cada funcion principal se ejecuta correctamente por separado much
  3- No se puede visualizar detalles de la barra de vida (puntos de vida actual / TDA).
  4- No se pueden visualizar las operaciones de cada carta.
 
+En conclusion se subestimo el tiempo en el aprendizaje de C++ (OOP) y SDL.  
+
 ## Autores
 Matias Nuñez
 Vicente Rosales
 Alex Alfaro
 
-## Autoevaluacion
+## Autoevaluacion en terminos de codigo
 A continuacion los niveles de contribucion de cada integrante (0 - 10):
  - Matias Nuñez    : 9
  - Vicente Rosales : 6
  - Alex Alfaro     : 1
+
+Continuara...
 
 
 
