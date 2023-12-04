@@ -14,7 +14,7 @@ DuelState::DuelState(StateQueue* origin) {
     player2 = new Player(100, TDAType::STACK);
 
     deck.fillDeck();
-    for (int i = 0; i < 7 ; i++){
+    for (int i = 0; i < 16 ; i++){
         player1->addCardToHand(deck);
         player2->addCardToHand(deck);
     }
@@ -130,7 +130,8 @@ void DuelState::Input(int value) {
         sprite2.setPosition(sprite.getPosition().x, 211);
 
     }
-    else if (keyStates[left]) {
+
+    if (keyStates[left]) {
         Sprite& sprite = hand.current()->sprite;
         sprite.setPosition(sprite.getPosition().x, 271);
 
@@ -202,25 +203,43 @@ void DuelState::drawCards(int value) {
         player = player2;
     }
 
+    // El sprite del borde blanco
+    Sprite white_border;
+    Texture* texture = getTexture("assets/images/white_card.png", value);
+    white_border.setTexture(texture);
+
+    // referncia del la mano de jugador
     List<Card>& hand = player->hand;
-    Card* ptr = hand.current();
+
+    // guarda el 'current'
+    Card* cur = hand.current();
 
     float offset = 320 / (hand.size());
     float posX = 0;
 
+    // Dibuja las cartas de las lista
+    // a excepcioón del current
     Card* temp = hand.first();
     while (temp != nullptr)
     {
-        
         temp->sprite.setPosition(posX, temp->sprite.getPosition().y);
-        draw(temp->sprite, value);
+
+        if(cur != temp)
+            draw(temp->sprite, value);
         posX += offset;
 
         temp = hand.next();
     }
+    draw(cur->sprite, value);
 
+    // Borde blanco
+    white_border.setPosition(cur->sprite.getPosition());
+    draw(white_border, value);
+
+    // Devuelve la lista a su
+    // antiguo 'current'
     temp = hand.first();
-    while (ptr != temp)
+    while (cur != temp)
     {
         temp = hand.next();
     }

@@ -32,13 +32,17 @@ private:
     };
 
     void draw(Drawable& drawable) { this->window->draw(drawable); }
-
     Texture* loadTexture(const char* filename) { return window->loadTexture(filename); }
+    void rulesInput();
+
+    bool showRules = false;
 
     RenderWindow* window;
 
     Sprite background;
-    Texture* backgroundTexture;
+    Sprite rulesBackground;
+    Sprite rules;
+
 
     Sprite title;
     Texture* titleTexture;
@@ -46,6 +50,7 @@ private:
     Button playButton;
     Button rulesButton;
     Button quitButton;
+    Button quitRulesButton;
 };
 
 #endif // STATE_START_H
