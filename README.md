@@ -11,7 +11,7 @@ TDA-Oh! es un juego de cartas educativo que fusiona la emoción de los duelos co
 
 ## Instrucciones de ejecucion
 
-Una vez ejecutado, se desplegara un menu con 3 botones distintos "jugar", "como jugar?" y "salir". Si le damos al boton "jugar", se cerrara la ventana principal y ,a la vez, se desplegaran 2 ventanas nuevas siendo cada una de ellas un jugador.
+Una vez ejecutado, se desplegara un menu con 3 botones distintos "Jugar", "Como jugar?" y "Salir". Si presionamos el boton "Jugar", se cerrara la ventana principal y ,a la vez, se desplegaran 2 ventanas nuevas siendo cada una de ellas un jugador. Si se presiona el boton "Como jugar?", sobre la ventana principal se proyectara un menu que no se logro concretar. Si presionamos el boton salir se abandonara la aplicacion.
 
 ## Intrucciones de movimiento
 Teclas del Jugador 1:
@@ -35,7 +35,7 @@ Teclas del Jugador 2:
 ## Estado del Proyecto
 
 A pesar de que cada funcion principal se ejecuta correctamente por separado muchas de las funciones que teniamos planeadas para desarrollar una interfaz grafica mediante librerias externas como SDL no dieron a la luz, , entre estas estan:
- 1- No se puede visualizar la jugada de una carta.
+ 1- No se puede visualizar el jugar una carta.
  2- No se logro implementar un sistema turnos, por lo que los jugadores pueden desplzarse a la vez.
  3- No se puede visualizar detalles de la barra de vida (puntos de vida actual / TDA).
  4- No se pueden visualizar las operaciones de cada carta.
@@ -49,12 +49,8 @@ Alex Alfaro
 
 ## Autoevaluacion en terminos de codigo
 A continuacion los niveles de contribucion de cada integrante (0 - 10):
- - Matias Nuñez    : 9
- - Vicente Rosales : 6
+ - Matias Nuñez    : 10
+ - Vicente Rosales : 6.5
  - Alex Alfaro     : 1
 
 Continuara...
-
-
-
-
