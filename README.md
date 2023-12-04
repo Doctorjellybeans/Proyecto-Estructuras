@@ -9,7 +9,18 @@
 
 TDA-Oh! es un juego de cartas educativo que fusiona la emoción de los duelos con la oportunidad de aprender sobre estructuras de datos y Tipos de Datos Abstractos (TDAs). Destaca por su enfoque único en la gestión de barras de vida utilizando TDAs como listas, colas y pilas. Los jugadores eligen estratégicamente acciones basadas en operaciones de TDAs asociadas a cartas, que además de tener puntajes, proporcionan descripciones educativas.
 
-## Instrucciones de ejecucion
+## Instrucciones de compilacion
+
+Primer paso:
+ 1- Abre una terminal:
+ 3- Navega al directorio del proyecto.
+ 4- Crea el directorio de compilación y accede a él.
+ 5- Ejecuta CMake con el generador "MinGW Makefiles".
+  ```mkdir build && cd build && cmake -G "MinGW Makefiles"```
+ 6- Compila el proyecto.
+ ``` mingw32-make ```
+
+ 
 
 Una vez ejecutado, se desplegara un menu con 3 botones distintos "Jugar", "Como jugar?" y "Salir". Si presionamos el boton "Jugar", se cerrara la ventana principal y ,a la vez, se desplegaran 2 ventanas nuevas siendo cada una de ellas un jugador. Si se presiona el boton "Como jugar?", sobre la ventana principal se proyectara un menu que no se logro concretar. Si presionamos el boton salir se abandonara la aplicacion.
 
