@@ -45,6 +45,8 @@ private:
 
     float inputDelay1 = 0;
     float inputDelay2 = 0;
+
+    bool player1turn = true;
 };
 
 
