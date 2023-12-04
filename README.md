@@ -11,7 +11,6 @@ TDA-Oh! es un juego de cartas educativo que fusiona la emoción de los duelos co
 
 ## Instrucciones de compilacion
 
-Primer paso:
  1- Abre una terminal y ejecute el comando:
 
   ```mkdir build && cd build && cmake -G "MinGW Makefiles"```
