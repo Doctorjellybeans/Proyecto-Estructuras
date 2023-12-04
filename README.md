@@ -27,7 +27,9 @@ Teclas del Jugador 2:
 
 
 ## Contribución
-
+ - Matias Nuñez    : Contribuye tanto en el desarrollo e implementacion de cada TDA / Estructura de datos como en las funciones de interfaz principales del juego
+ - Vicente Rosales : Contribuye tanto en el desarrollo e implementacion de cada TDA / Estructura de datos como en las funciones principales del juego.
+ - Alex Alfaro     : Contribuye en el diseño de Imagenes que se visualizan dentro del juego
 
 
 ## Estado del Proyecto
@@ -44,7 +46,10 @@ Vicente Rosales
 Alex Alfaro
 
 ## Autoevaluacion
-
+A continuacion los niveles de contribucion de cada integrante (0 - 10):
+ - Matias Nuñez    : 9
+ - Vicente Rosales : 6
+ - Alex Alfaro     : 1
 
 
 
