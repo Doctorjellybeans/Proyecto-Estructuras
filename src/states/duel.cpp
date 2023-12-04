@@ -202,6 +202,10 @@ void DuelState::drawCards(int value) {
         player = player2;
     }
 
+    Sprite white_border;
+    Texture* texture = getTexture("assets/images/white_card.png", value);
+    white_border.setTexture(texture);
+
     List<Card>& hand = player->hand;
     Card* ptr = hand.current();
 
@@ -213,11 +217,17 @@ void DuelState::drawCards(int value) {
     {
         
         temp->sprite.setPosition(posX, temp->sprite.getPosition().y);
-        draw(temp->sprite, value);
+
+        if(temp != ptr)
+            draw(temp->sprite, value);
         posX += offset;
 
         temp = hand.next();
     }
+    draw(ptr->sprite, value);
+
+    white_border.setPosition(ptr->sprite.getPosition());
+    draw(white_border, value);
 
     temp = hand.first();
     while (ptr != temp)
