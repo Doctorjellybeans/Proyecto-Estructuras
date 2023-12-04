@@ -28,7 +28,7 @@ StartState::StartState(StateQueue* origin) {
     quitRulesButton.setPosition(744, 0);
 
     // "¿Comó se juega?"
-    texture = loadTexture("assets/images/rules_placeholder.png");
+    texture = loadTexture("assets/images/special_rules.png");
     rules.setTexture(texture);
 
     texture = loadTexture("assets/images/rules_backbround.png");
