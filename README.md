@@ -15,7 +15,7 @@ TDA-Oh! es un juego de cartas educativo que fusiona la emoción de los duelos co
 
   ```mkdir build && cd build && cmake -G "MinGW Makefiles"```
 
- 6- Compila el proyecto.
+ 2- Compila el proyecto.
 
   ```mingw32-make```
 
@@ -25,7 +25,7 @@ Una vez ejecutado, se desplegara un menu con 3 botones distintos "Jugar", "Como 
 Teclas del Jugador 1:
  para deslazarnos entre las cartas que representan la mano del jugador:
   - Q: izquerda
-  - E: derecha
+  - W: derecha
     
 Teclas del Jugador 2:
  para deslazarnos entre las cartas que representan la mano del jugador:
@@ -60,5 +60,3 @@ A continuacion los niveles de contribucion de cada integrante (0 - 10):
  - Matias Nuñez    : 10
  - Vicente Rosales : 6.5
  - Alex Alfaro     : 1
-
-Continuara...
